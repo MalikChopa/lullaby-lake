@@ -1,0 +1,12 @@
+Lullaby Lake - music files / fichiers de musique
+Downloaded 2026-11-05 with the project owner's approval (file by file).
+Each track: author omfgdude (OpenGameArt.org), license CC0 (public domain dedication, as stated by the author on the page).
+
+chill-lofi-inspired.mp3  <- ChillLofiR_0.mp3   2717205 bytes  sha256 1796a480e3db0c02d5e58059b2ae7cfbeab344f95e0443496790da022cbe91b5
+  page: https://opengameart.org/content/chill-lofi-inspired   (Chill lofi inspired, 2017-05-29)
+lofi-again.ogg           <- lofiagain.ogg      2419417 bytes  sha256 d3b3410a186d45dadbcf87a8072b5a7f3b3f5a11fe38d9a7e9bdb3f66d5d86fa
+  page: https://opengameart.org/content/lofi-again           (Lofi again, 2019-02-26)
+lofi-hip-hop-loop.ogg    <- LofiLoop_2.ogg     1430666 bytes  sha256 e57ba821d4db8d66783ca984a2778ec68d1439e862239ec36407344ef3bd1eab
+  page: https://opengameart.org/content/lofi-hip-hop-loop    (Lofi Hip Hop Loop, 2019-01-28)
+
+Files are unmodified copies (renamed only). The CC0 status is the author's declaration on the site; credit is not required, given as courtesy.

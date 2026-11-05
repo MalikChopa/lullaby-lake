@@ -1,0 +1,371 @@
+THIRD-PARTY NOTICES / AVIS DES ŒUVRES TIERCES - Lullaby Lake
+============================================================
+
+Lullaby Lake (code MIT, drawings CC BY 4.0: see LICENSE and LICENSE-ART)
+ships three third-party works inside vendor/ and three music tracks inside
+assets/music/. They are not covered by LICENSE / LICENSE-ART; each keeps its own
+license, reproduced or referred to below.
+Nothing is downloaded at run time from another site: every file, the music tracks
+included, is served from this repository.
+
+
+1. PixiJS 8.22.0  -  MIT License
+------------------------------------------------------------
+File        : vendor/pixi/pixi.min.mjs (browser bundle, unmodified)
+Source      : https://cdn.jsdelivr.net/npm/pixi.js@8.22.0/dist/pixi.min.mjs (npm mirror)
+SHA-256     : 66257bc46776898bf8c54daaed402ed8f9ac109379c47b2dfa8aa048544d2953
+              (from vendor/pixi/VERSION; compared on 2026-11-02 with the official jsDelivr listing)
+License text: vendor/pixi/LICENSE, copied verbatim here:
+
+The MIT License
+
+Copyright (c) 2013-2023 Mathew Groves, Chad Engler
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+2. tiny-lru 11.4.7  -  BSD-3-Clause  (bundled inside pixi.min.mjs)
+------------------------------------------------------------
+Where found : the bundle vendor/pixi/pixi.min.mjs contains, around line 1651,
+              a comment block that reads as follows (the e-mail address shown in it is left out here):
+
+                 tiny-lru
+                 @copyright 2026 Jason Mulligan <e-mail address omitted here>
+                 @license BSD-3-Clause
+                 @version 11.4.7
+
+              It sits right before the class that implements a least-recently-used
+              cache. This is the "@license BSD-3-Clause" mention found in the file;
+              no other "@license" mention exists in it.
+Notice      : Copyright 2026 Jason Mulligan (the bundle also shows an e-mail address, not repeated here),
+              BSD 3-Clause License (SPDX identifier: BSD-3-Clause).
+Full text   : not in the bundle (only the copyright line and the license name).
+              Copied verbatim on 2026-11-04 from the official repository, file LICENSE at tag 11.4.7
+              (https://github.com/avoidwork/tiny-lru):
+
+              Copyright (c) 2026, Jason Mulligan
+              All rights reserved.
+
+              Redistribution and use in source and binary forms, with or without
+              modification, are permitted provided that the following conditions are met:
+
+              * Redistributions of source code must retain the above copyright notice, this
+                list of conditions and the following disclaimer.
+
+              * Redistributions in binary form must reproduce the above copyright notice,
+                this list of conditions and the following disclaimer in the documentation
+                and/or other materials provided with the distribution.
+
+              * Neither the name of tiny-lru nor the names of its
+                contributors may be used to endorse or promote products derived from
+                this software without specific prior written permission.
+
+              THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+              AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+              IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+              DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+              FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+              DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+              SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+              CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+              OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+              OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+Other libraries of the PixiJS package
+              The package pixi.js 8.22.0 declares these runtime dependencies (read on 2026-11-04 from
+              https://registry.npmjs.org/pixi.js/8.22.0, field "dependencies"). The browser bundle
+              vendor/pixi/pixi.min.mjs may contain some or all of them without a notice of its own; their
+              notices are given here to be safe. Version ranges are those of that package; the text of each
+              licence was read on 2026-11-04 from a version inside the range (the licence type is the same).
+              The type-only packages (@types/earcut, @webgpu/types) put no code in the bundle.
+              E-mail addresses of third-party authors that appear in these texts are replaced by <e-mail omitted>.
+
+2.1 earcut  -  ISC  (range 3.x, text read from 3.2.4)
+              ISC License
+
+              Copyright (c) 2026, Mapbox
+
+              Permission to use, copy, modify, and/or distribute this software for any purpose
+              with or without fee is hereby granted, provided that the above copyright notice
+              and this permission notice appear in all copies.
+
+              THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+              REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND
+              FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+              INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
+              OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
+              TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
+              THIS SOFTWARE.
+
+2.2 eventemitter3  -  MIT  (range 5.x, text read from 5.0.4)
+              The MIT License (MIT)
+
+              Copyright (c) 2014 Arnout Kazemier
+
+              Permission is hereby granted, free of charge, to any person obtaining a copy
+              of this software and associated documentation files (the "Software"), to deal
+              in the Software without restriction, including without limitation the rights
+              to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+              copies of the Software, and to permit persons to whom the Software is
+              furnished to do so, subject to the following conditions:
+
+              The above copyright notice and this permission notice shall be included in all
+              copies or substantial portions of the Software.
+
+              THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+              IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+              FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+              AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+              LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+              OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+              SOFTWARE.
+
+2.3 ismobilejs  -  MIT  (range 1.x, text read from 1.1.1)
+              MIT License
+
+              Copyright (c) 2019 Kai Mallea
+
+              Permission is hereby granted, free of charge, to any person obtaining a copy
+              of this software and associated documentation files (the "Software"), to deal
+              in the Software without restriction, including without limitation the rights
+              to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+              copies of the Software, and to permit persons to whom the Software is
+              furnished to do so, subject to the following conditions:
+
+              The above copyright notice and this permission notice shall be included in all
+              copies or substantial portions of the Software.
+
+              THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+              IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+              FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+              AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+              LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+              OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+              SOFTWARE.
+
+2.4 gifuct-js  -  MIT  (range 2.x, text read from 2.1.2)
+              The MIT License (MIT)
+
+              Copyright (c) 2015 Matt Way
+
+              Permission is hereby granted, free of charge, to any person obtaining a copy
+              of this software and associated documentation files (the "Software"), to deal
+              in the Software without restriction, including without limitation the rights
+              to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+              copies of the Software, and to permit persons to whom the Software is
+              furnished to do so, subject to the following conditions:
+
+              The above copyright notice and this permission notice shall be included in all
+              copies or substantial portions of the Software.
+
+              THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+              IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+              FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+              AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+              LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+              OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+              SOFTWARE.
+
+2.5 @pixi/colord (fork of colord; text of the original colord repository)  -  MIT  (range 2.x, 2.9.6)
+              MIT License
+
+              Copyright (c) 2020 Vlad Shilov <e-mail omitted>
+
+              Permission is hereby granted, free of charge, to any person obtaining a copy
+              of this software and associated documentation files (the "Software"), to deal
+              in the Software without restriction, including without limitation the rights
+              to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+              copies of the Software, and to permit persons to whom the Software is
+              furnished to do so, subject to the following conditions:
+
+              The above copyright notice and this permission notice shall be included in all
+              copies or substantial portions of the Software.
+
+              THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+              IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+              FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+              AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+              LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+              OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+              SOFTWARE.
+
+2.6 parse-svg-path  -  MIT  (range 0.2.x, text read from 0.2.0)
+              The MIT License
+
+              Copyright (c) 2013 Jake Rosoman <e-mail omitted>
+
+              Permission is hereby granted, free of charge, to any person obtaining
+              a copy of this software and associated documentation files (the
+              'Software'), to deal in the Software without restriction, including
+              without limitation the rights to use, copy, modify, merge, publish,
+              distribute, sublicense, and/or sell copies of the Software, and to
+              permit persons to whom the Software is furnished to do so, subject to
+              the following conditions:
+
+              The above copyright notice and this permission notice shall be
+              included in all copies or substantial portions of the Software.
+
+              THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+              EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+              MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+              IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+              CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+              TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+              SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+2.7 @xmldom/xmldom  -  MIT  (range 0.8.x, text read from 0.8.15)
+              Copyright 2019 - present Christopher J. Brody and other contributors, as listed in: https://github.com/xmldom/xmldom/graphs/contributors
+              Copyright 2012 - 2017 @jindw <e-mail omitted> and other contributors, as listed in: https://github.com/jindw/xmldom/graphs/contributors
+
+              Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+              The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+              THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+3. Pixelify Sans (Fontsource 5.3.0, latin 400)  -  SIL Open Font License 1.1
+------------------------------------------------------------
+File        : vendor/fonts/pixelify-sans/pixelify-sans-latin-400-normal.woff2 (7692 bytes, unmodified)
+Source      : https://cdn.jsdelivr.net/npm/@fontsource/pixelify-sans@5.3.0/files/pixelify-sans-latin-400-normal.woff2
+Design      : The Pixelify Sans Project Authors (https://github.com/eifetx/Pixelify-Sans)
+License text: vendor/fonts/pixelify-sans/LICENSE, copied verbatim here (from vendor/fonts/pixelify-sans/VERSION: compared
+              on 2026-11-02 with the official jsDelivr listing):
+
+Copyright 2021 The Pixelify Sans Project Authors (https://github.com/eifetx/Pixelify-Sans)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded,
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+"Font Software" refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+"Reserved Font Name" refers to any names specified as such after the
+copyright statement(s).
+
+"Original Version" refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+"Modified Version" refers to any derivative made by adding to, deleting,
+or substituting -- in part or in whole -- any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+"Author" refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION & CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.
+
+
+4. Three music tracks by omfgdude  -  CC0 1.0 (public domain dedication)
+------------------------------------------------------------
+Where       : assets/music/ (served as they are; the game plays them only when the music style
+              "Vrais morceaux lofi" / "Real lofi tracks" is chosen). Unmodified copies, renamed only.
+Author      : omfgdude, on OpenGameArt.org
+License     : CC0 1.0 Universal (https://creativecommons.org/publicdomain/zero/1.0/), as declared by the
+              author on each page below. Credit is not required; it is given here as a courtesy.
+              This is the author's own declaration on the site, as recorded on 2026-11-05 (assets/music/SOURCES.txt).
+
+  chill-lofi-inspired.mp3   "Chill lofi inspired" (2017-05-29), original name ChillLofiR_0.mp3
+      page   : https://opengameart.org/content/chill-lofi-inspired
+      size   : 2717205 bytes
+      SHA-256: 1796a480e3db0c02d5e58059b2ae7cfbeab344f95e0443496790da022cbe91b5
+
+  lofi-again.ogg            "Lofi again" (2019-02-26), original name lofiagain.ogg
+      page   : https://opengameart.org/content/lofi-again
+      size   : 2419417 bytes
+      SHA-256: d3b3410a186d45dadbcf87a8072b5a7f3b3f5a11fe38d9a7e9bdb3f66d5d86fa
+
+  lofi-hip-hop-loop.ogg     "Lofi Hip Hop Loop" (2019-01-28), original name LofiLoop_2.ogg
+      page   : https://opengameart.org/content/lofi-hip-hop-loop
+      size   : 1430666 bytes
+      SHA-256: e57ba821d4db8d66783ca984a2778ec68d1439e862239ec36407344ef3bd1eab
+
+The same list, with the same hashes, is in assets/music/SOURCES.txt; tools/hygiene.mjs checks the hashes of
+the public copy against it. The game itself only fades these tracks in and out and adjusts their level.

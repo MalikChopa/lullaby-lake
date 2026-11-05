@@ -1,0 +1,41 @@
+Lullaby Lake - artwork license / licence des dessins
+=====================================================
+
+The artwork of Lullaby Lake is licensed under the Creative Commons
+Attribution 4.0 International license (CC BY 4.0).
+
+Les dessins de Lullaby Lake sont sous licence Creative Commons
+Attribution 4.0 International (CC BY 4.0).
+
+Holder / Titulaire : MalikChopa
+
+Covered files / Fichiers couverts (and only these / et seulement ceux-ci) :
+
+  - src/data/fishSprites.js      the drawing parameters of the 12 fish (colours, shapes) / les
+                                 paramètres de dessin des 12 poissons (couleurs, formes). The program
+                                 that paints them, src/art/fishPaint.js, is under MIT (see LICENSE) /
+                                 le programme qui les peint, src/art/fishPaint.js, est sous MIT
+  - docs/media/                  the animated GIF and the screenshots / le GIF et les captures
+  - the PNG photos exported by the game's photo mode (they show the drawings
+    above and the scenery painted by the code) / les photos PNG exportées par le
+    mode photo du jeu (elles montrent les dessins ci-dessus et le décor peint par le code)
+
+Not covered / Non couverts : all the code (MIT, see LICENSE), including the
+programs in src/art/ that paint the scenery, and the third-party files in
+vendor/ (see THIRD-PARTY).
+
+Attribution line to use / Mention d'attribution à utiliser :
+
+  Lullaby Lake — dessins © MalikChopa, CC BY 4.0, https://creativecommons.org/licenses/by/4.0/
+
+You may share and adapt the covered files for any purpose, even commercially,
+if you give credit (the line above), link to the license and say if you made
+changes. Official summary and legal code (the only text that counts) :
+https://creativecommons.org/licenses/by/4.0/ (legal code: the "legalcode"
+page linked from that address). The legal code is deliberately not copied here.
+
+Vous pouvez partager et adapter les fichiers couverts, même commercialement,
+en citant l'auteur (mention ci-dessus), en donnant le lien vers la licence et
+en indiquant les modifications. Résumé officiel et texte juridique (seul texte
+qui fait foi) : https://creativecommons.org/licenses/by/4.0/ . Le texte juridique
+n'est volontairement pas recopié ici.

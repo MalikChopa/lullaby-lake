@@ -1,0 +1,2 @@
+# Les fichiers vendus ne doivent jamais être modifiés (empreinte vérifiée par un test)
+vendor/** -text
