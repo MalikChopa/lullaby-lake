@@ -5,15 +5,19 @@
 import { W, H } from '../art/sceneBake.js';
 
 const K = 8; // backdrop pixels = window pixels / K
+/** The picture fills the window up to this width / height (styles.css: canvas#scene 240vh); beyond it, bars on the sides are filled here. */
+export const MAX_ASPECT = 2.4;
 
-export function createBackdrop({ canvas, source, win = window }) {
+/** `size()` gives the box the picture lives in ({ w, h }); by default the window (turned around when the page is turned a quarter turn: main.js). */
+export function createBackdrop({ canvas, source, win = window, size = () => ({ w: win.innerWidth, h: win.innerHeight }) }) {
   const ctx = canvas && canvas.getContext ? canvas.getContext('2d') : null;
   let geo = null;
   function layout() {
     if (!ctx) return;
-    const vw = Math.max(1, win.innerWidth);
-    const vh = Math.max(1, win.innerHeight);
-    const sw = Math.min(vw, (vh * 16) / 9);
+    const box = size();
+    const vw = Math.max(1, box.w);
+    const vh = Math.max(1, box.h);
+    const sw = Math.min(vw, vh * MAX_ASPECT); // the picture is as wide as the window (or at most 2.4 times its height)
     const sh = (sw * 9) / 16;
     const cw = Math.max(2, Math.ceil(vw / K));
     const ch = Math.max(2, Math.ceil(vh / K));
@@ -40,7 +44,10 @@ export function createBackdrop({ canvas, source, win = window }) {
     }
   }
   layout();
-  if (win.addEventListener) win.addEventListener('resize', layout);
+  if (win.addEventListener) {
+    win.addEventListener('resize', layout);
+    win.addEventListener('orientationchange', () => setTimeout(layout, 300)); // iOS Safari reports the new size late
+  }
   let n = 0;
   return {
     layout,

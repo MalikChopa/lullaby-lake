@@ -107,7 +107,7 @@ export function attachDom(router, { sceneEl, canvasEl }) {
   };
   document.addEventListener('keydown', onKey('down'));
   document.addEventListener('keyup', onKey('up'));
-  sceneEl.addEventListener('pointerdown', (ev) => {
+  const onDown = (ev) => {
     if (ev.pointerType === 'mouse' && ev.button !== 0) return;
     const onScene = !ev.target.closest('button,.card,a,input,label');
     router.pointer({ type: 'down', id: ev.pointerId, onScene });
@@ -115,10 +115,15 @@ export function attachDom(router, { sceneEl, canvasEl }) {
       ev.preventDefault();
       if (canvasEl && canvasEl.focus) canvasEl.focus({ preventScroll: true });
     }
-  });
+  };
+  sceneEl.addEventListener('pointerdown', onDown);
+  // the picture is bigger than the game screen in a wide window: a press on the part of it that is outside the 16:9 box counts too
+  // (the canvas is not inside the game screen, so the two listeners never see the same press; the router ignores presses on other screens)
+  if (canvasEl) canvasEl.addEventListener('pointerdown', onDown);
   window.addEventListener('pointerup', (ev) => router.pointer({ type: 'up', id: ev.pointerId }));
   window.addEventListener('pointercancel', (ev) => router.pointer({ type: 'cancel', id: ev.pointerId }));
   sceneEl.addEventListener('contextmenu', (ev) => ev.preventDefault());
+  if (canvasEl) canvasEl.addEventListener('contextmenu', (ev) => ev.preventDefault());
   window.addEventListener('blur', () => router.blur());
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) router.blur();

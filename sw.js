@@ -12,7 +12,7 @@
 // FILES, MUSIC and VERSION are written by `node tools/site-files.mjs --write` (npm run sw); tests/sw.test.js fails if they are stale.
 // Nothing is ever sent anywhere and no other site is contacted.
 
-const VERSION = '2f58c7729c4f';
+const VERSION = 'd38a41539817';
 // BEGIN FILES (written by tools/site-files.mjs --write; tests/sw.test.js checks it)
 const FILES = [
   './',

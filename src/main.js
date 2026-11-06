@@ -124,7 +124,11 @@ async function main() {
   const switches = []; // debug: each change of the nominal mood { to, frameMs }
   let pendingSwitch = null;
   const layer = createFrameLayer();
-  const backdrop = createBackdrop({ canvas: $('backdrop'), source: layer.canvas });
+  // "Play anyway" (portrait phone that cannot turn): the page is turned a quarter turn by CSS (html[data-rot]); the picture lives in the turned box
+  const turned = () => document.documentElement.dataset.rot === '1' && window.matchMedia(PORTRAIT_QUERY).matches;
+  const backdrop = createBackdrop({ canvas: $('backdrop'), source: layer.canvas, size: () => (turned() ? { w: window.innerHeight, h: window.innerWidth } : { w: window.innerWidth, h: window.innerHeight }) });
+  const rotateBtn = $('rotateAnyway');
+  if (rotateBtn) rotateBtn.addEventListener('click', () => { document.documentElement.dataset.rot = '1'; backdrop.layout(); });
   const lookNow = (gs) => {
     if (presetOverride) return pinnedLook(presetOverride, presets, skyData);
     const w = gs.world;
@@ -330,7 +334,7 @@ async function main() {
 
   const router = createRouter(
     (a) => onAction(a),
-    () => ({ screen: screens.current(), blocked: window.matchMedia(PORTRAIT_QUERY).matches, shortcuts: settings.shortcuts }),
+    () => ({ screen: screens.current(), blocked: window.matchMedia(PORTRAIT_QUERY).matches && !turned(), shortcuts: settings.shortcuts }),
   );
   attachDom(router, { sceneEl: $('s-game'), canvasEl: canvas });
 

@@ -112,11 +112,14 @@
   <div id="live" class="sr-only" role="status" aria-live="polite"></div>
 </div>
 
-<!-- portrait phone: CSS only, both languages, never closes (the game is safe behind it) -->
+<!-- portrait phone: both languages; the message goes away by itself when the phone is turned (CSS only). If the phone cannot turn (rotation lock,
+     browser inside another app), the button below turns the picture by itself instead (html[data-rot], main.js) -->
 <div id="rotate" role="status">
   <div class="phone" aria-hidden="true"></div>
   <p>Tourne ton téléphone</p>
   <p>Rotate your phone</p>
+  <p class="rot-tip">Ça ne tourne pas (rotation verrouillée, navigateur d'une appli) ?<br>Phone does not turn (rotation lock, in-app browser)?</p>
+  <button id="rotateAnyway" type="button">Jouer quand même · Play anyway</button>
 </div>
 <noscript><p style="position:fixed;inset:0;margin:0;padding:24px;background:#1d1830;color:#fff8e8;font:20px monospace;z-index:200">Lullaby Lake a besoin de JavaScript. / Lullaby Lake needs JavaScript.</p></noscript>
 <script type="module" src="./src/main.js"></script>
