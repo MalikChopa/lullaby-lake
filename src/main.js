@@ -24,6 +24,7 @@ import { computeAnglerParams } from './render/angler.js';
 import { createFrameLayer } from './render/layers.js';
 import { savePhoto } from './render/photo.js';
 import { createStage, createStillStage } from './render/stage.js';
+import { createBackdrop } from './render/backdrop.js';
 import { createRouter, attachDom } from './input/input.js';
 import { createI18n, applyDom } from './ui/i18n.js';
 import { createScreens } from './ui/screens.js';
@@ -123,6 +124,7 @@ async function main() {
   const switches = []; // debug: each change of the nominal mood { to, frameMs }
   let pendingSwitch = null;
   const layer = createFrameLayer();
+  const backdrop = createBackdrop({ canvas: $('backdrop'), source: layer.canvas });
   const lookNow = (gs) => {
     if (presetOverride) return pinnedLook(presetOverride, presets, skyData);
     const w = gs.world;
@@ -224,6 +226,7 @@ async function main() {
     stageEl.querySelectorAll('.scr').forEach((s) => s.classList.remove('on'));
     $('webglMsg').hidden = false;
     stage.draw(scene.render({ time: 0, reduced: true, cast: computeAnglerParams(idleFishing, 0, true, config), splash: null, look: lookNow(game.getState()) }));
+    backdrop.update();
     window.__lullaby = { fallback: true, kind: stage.kind };
     return;
   }
@@ -730,6 +733,7 @@ async function main() {
       lastEvents = critters.active(ct, lastEnv);
       lastCat = cat.update(animT, lastEnv);
       stage.draw(scene.render({ time: t, reduced, cast, splash: splashParam(age, cast.landX, reduced), look, cat: lastCat, critters: { events: hidden ? [] : lastEvents } }));
+      backdrop.tick();
     }
     const work = performance.now() - w0;
     if (pendingSwitch) {

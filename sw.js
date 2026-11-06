@@ -12,7 +12,7 @@
 // FILES, MUSIC and VERSION are written by `node tools/site-files.mjs --write` (npm run sw); tests/sw.test.js fails if they are stale.
 // Nothing is ever sent anywhere and no other site is contacted.
 
-const VERSION = '3f9aaf9a9836';
+const VERSION = '2f58c7729c4f';
 // BEGIN FILES (written by tools/site-files.mjs --write; tests/sw.test.js checks it)
 const FILES = [
   './',
@@ -33,7 +33,6 @@ const FILES = [
   './src/art/waterPaint.js',
   './src/audio/engine.js',
   './src/audio/hooks.js',
-  './src/audio/lofiRender.js',
   './src/audio/noise.js',
   './src/audio/trackLoader.js',
   './src/core/audioMix.js',
@@ -45,7 +44,6 @@ const FILES = [
   './src/core/fishing.js',
   './src/core/game.js',
   './src/core/lang.js',
-  './src/core/lofi.js',
   './src/core/look.js',
   './src/core/playlist.js',
   './src/core/rng.js',
@@ -60,7 +58,6 @@ const FILES = [
   './src/data/critters.js',
   './src/data/fishSprites.js',
   './src/data/icons.js',
-  './src/data/lofi.js',
   './src/data/palettes.js',
   './src/data/sky.js',
   './src/data/species.js',
@@ -75,6 +72,7 @@ const FILES = [
   './src/platform/storage.js',
   './src/platform/worker.js',
   './src/render/angler.js',
+  './src/render/backdrop.js',
   './src/render/layers.js',
   './src/render/photo.js',
   './src/render/pixi.js',

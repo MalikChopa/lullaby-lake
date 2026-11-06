@@ -25,9 +25,9 @@ const NIGHT = { ...audioLevels(look(0.8125)), music: 0.75 };
 const TRACKS = audioData.real.tracks;
 
 // ------------------------------------------------------------------ data
-test('real data: the third style exists, the default stays soft, the three tracks are the three files on disk', () => {
-  assert.deepEqual([...audioData.styles], ['soft', 'lofi', 'real']);
-  assert.equal(audioData.defaultStyle, 'soft');
+test('real data: two styles, the recorded lofi is the default, the three tracks are the three files on disk', () => {
+  assert.deepEqual([...audioData.styles], ['soft', 'real']);
+  assert.equal(audioData.defaultStyle, 'real');
   assert.equal(TRACKS.length, 3);
   const sizes = { chill: 2717205, again: 2419417, loop: 1430666 };
   for (const t of TRACKS) {
@@ -38,9 +38,9 @@ test('real data: the third style exists, the default stays soft, the three track
   assert.ok(audioData.real.crossS >= 3, 'cross-fade of at least 3 s between tracks');
 });
 
-test('real data: the fixed gains bring every file to the loudness of the generated lofi (-26.6 dBFS RMS +-0.2 dB), measured RMS of the files', () => {
+test('real data: the fixed gains bring every file to one common loudness (-28.6 dBFS RMS +-0.2 dB), measured RMS of the files', () => {
   const rms = { chill: -18.0, again: -17.41, loop: -18.94 }; // ffmpeg astats, mono mix, 2026-11-05 (journal J6 part D)
-  const target = 20 * Math.log10(audioData.lofi.gain) - 18.6; // generated lofi: gain 0.4 on a bar at -18.6 dBFS RMS
+  const target = -28.6; // the common target before the music bus (the removed generated lofi had -26.56: 2 dB lower keeps the worst case under -6 dBFS)
   for (const t of TRACKS) {
     const out = rms[t.id] + 20 * Math.log10(t.gain);
     assert.ok(Math.abs(out - target) < 0.2, `${t.id}: ${out.toFixed(2)} dBFS vs ${target.toFixed(2)}`);
@@ -161,8 +161,9 @@ function rig({ seed = 11, fail = new Set(), failAll = false, delayMs = 0, slow =
       if (!t) throw new Error('undecodable');
       return ctx.createBuffer(2, Math.round(t.durationS * 100), 100);
     },
-    perfNow: () => (clockMs += readCostMs), // every reading costs 0.4 ms by default: a lofi bar is made in pieces, as on a real machine
+    perfNow: () => (clockMs += readCostMs), // every reading costs 0.4 ms by default: a reading of the clock is not free on a real machine
   });
+  engine.setStyle('soft'); // the engine's own default is 'real' (see the test of the default below): the rig starts on soft, as these tests were written
   const flush = () => new Promise((r) => setImmediate(r));
   async function run(s, each = null) {
     const c = made[0];
@@ -177,6 +178,7 @@ function rig({ seed = 11, fail = new Set(), failAll = false, delayMs = 0, slow =
 }
 const trackSources = (c) => c.nodes.filter((n) => n.kind === 'source' && !n.loop && n.buffer && n.buffer.sampleRate === 100);
 const nameOf = (src) => TRACKS.find((t) => Math.round(t.durationS * 100) === src.buffer.length).id;
+const playEnd = (src) => src.startAt + src.buffer.duration - (TRACKS.find((t) => t.id === nameOf(src)).tailS || 0); // a silent tail does not count (data tailS)
 
 test('real engine: no request and no context before the first gesture, with "no sound", while muted, or with another style', async () => {
   // before the gesture: only the choice is remembered
@@ -200,7 +202,7 @@ test('real engine: no request and no context before the first gesture, with "no 
   await b.run(3);
   assert.equal(b.requested.length, 1, 'unmuted: the first track is asked');
   // another style, started: never a request
-  for (const style of ['soft', 'lofi']) {
+  for (const style of ['soft']) {
     const c = rig();
     c.engine.setStyle(style);
     c.engine.start();
@@ -243,7 +245,7 @@ test('real engine: the first track is fetched once, starts from silence on exact
   const tr = TRACKS.find((t) => t.id === nameOf(src[0]));
   assert.ok(Math.abs(fin[1][127] - tr.gain) < 1e-6, 'the curve peaks at the normalisation gain');
   assert.equal(fout[1][127], 0, 'falls to silence at the end');
-  assert.ok(Math.abs(fout[2] + fout[3] - (src[0].startAt + src[0].buffer.duration)) < 1e-6, 'the fall ends with the track');
+  assert.ok(Math.abs(fout[2] + fout[3] - playEnd(src[0])) < 1e-6, 'the fall ends with the track (its silent tail left out)');
   const out = g.connections[0];
   assert.equal(out.kind, 'gain');
   const bus = out.connections[0];
@@ -273,7 +275,7 @@ test('real engine: endless playlist - next track asked ~54 s before the end, sta
   const names = src.map(nameOf);
   for (let i = 1; i < names.length; i++) assert.notEqual(names[i], names[i - 1], 'no repeat at ' + i + ': ' + names.join());
   for (let i = 1; i < src.length; i++) {
-    const prevEnd = src[i - 1].startAt + src[i - 1].buffer.duration;
+    const prevEnd = playEnd(src[i - 1]);
     assert.ok(Math.abs(src[i].startAt - (prevEnd - audioData.real.crossS)) < 1e-6, `track ${i} starts one cross-fade before the end of the previous one: ${src[i].startAt} vs ${prevEnd}`);
     const gPrev = src[i - 1].connections[0];
     const outPrev = gPrev.gain.events.filter((e) => e[0] === 'curve')[1];
@@ -339,7 +341,7 @@ test('real engine: a decode failure is handled like a failed fetch (no throw, fa
       throw new Error('EncodingError');
     },
   });
-  engine.setStyle('lofi');
+  engine.setStyle('soft');
   engine.start();
   engine.setLevels(NIGHT);
   for (let i = 0; i < 20; i++) {
@@ -356,8 +358,8 @@ test('real engine: a decode failure is handled like a failed fetch (no throw, fa
   assert.equal(requested.length, 3);
   const s = engine.stats();
   assert.equal(s.real.failedAll, true);
-  assert.equal(s.real.heardStyle, 'lofi', 'back to the style heard before');
-  assert.ok(s.lofi.gain > 0, 'the lofi was never faded');
+  assert.equal(s.real.heardStyle, 'soft', 'back to the soft music');
+  assert.ok(s.counts.notes > 0, 'the soft notes play');
 });
 
 test('real engine: decodeBytes handles both the promise form and the callback form of decodeAudioData, and a throw', async () => {
@@ -401,63 +403,36 @@ test('real engine: soft -> real keeps the soft notes until the first track plays
   for (const n of c.nodes) if (n.gain && n.gain.discontinuities !== undefined) assert.equal(n.gain.discontinuities, 0);
 });
 
-test('real engine: lofi -> real overlaps (lofi stays until the track starts, then falls on an equal-power curve of >= 3 s as the track rises); real -> lofi holds the tracks until a bar is scheduled', async () => {
-  const r = rig({ slow: 20, readCostMs: 3 }); // a slow machine: the first lofi bar needs several ticks
-  r.engine.setStyle('lofi');
-  r.engine.start();
-  r.engine.setLevels(NIGHT);
-  await r.run(15);
-  const c = r.made[0];
-  const lofiGain = () => c.nodes.filter((n) => n.kind === 'gain' && n.connections.some((x) => x.kind === 'filter' && x.frequency.value === audioData.lofi.tapeHz)).pop(); // the newest chain
-  const lg = lofiGain();
-  assert.ok(lg.gain.events.some((e) => e[0] === 'target' && e[1] > 0.1));
-  r.engine.setStyle('real');
-  await r.run(1);
-  assert.equal(r.engine.stats().real.heardStyle, 'lofi');
-  await r.run(8);
-  assert.equal(r.engine.stats().real.audible, true);
-  const fall = lg.gain.events.filter((e) => e[0] === 'curve');
-  assert.equal(fall.length, 1);
-  assert.ok(fall[0][3] >= 3 && fall[0][1][127] === 0 && fall[0][1][0] > 0.1, 'lofi falls on a curve of ' + fall[0][3] + ' s');
-  const track = trackSources(c)[0];
-  const rise = track.connections[0].gain.events.find((e) => e[0] === 'curve');
-  assert.ok(Math.abs(rise[2] - fall[0][2]) < 0.05, `the two curves start together: ${rise[2]} vs ${fall[0][2]}`);
-  assert.ok(Math.abs(rise[3] - fall[0][3]) < 1e-9);
-  // power at every point of the overlap: lofi level^2 + tracks^2 (both normalised to the same loudness by the data) stays within 1 dB of the steady value
-  const lofiPeak = fall[0][1][0];
-  const trackPeak = rise[1][127];
-  for (let i = 0; i < 128; i++) {
-    const p = (fall[0][1][i] / lofiPeak) ** 2 + (rise[1][i] / trackPeak) ** 2;
-    assert.ok(Math.abs(p - 1) < 1e-4, 'equal power at ' + i);
+test('real engine: with no choice made, the recorded lofi is the style of a new game: silent until the first track is ready, no soft notes, then the track plays', async () => {
+  const made = [];
+  const requested = [];
+  const engine = createAudioEngine({
+    makeContext: () => (made[0] = createFakeContext({ state: 'suspended' })),
+    rng: mulberry32(5),
+    timers: { set: () => 1, clear: () => {}, after: () => {} },
+    loadBytes: async (url) => {
+      requested.push(url);
+      for (let i = 0; i < 20; i++) await new Promise((r) => setImmediate(r));
+      return { url };
+    },
+    decode: async (ctx, bytes) => ctx.createBuffer(2, Math.round(TRACKS.find((x) => x.url === bytes.url).durationS * 100), 100),
+  });
+  assert.equal(engine.style, 'real');
+  engine.tick();
+  assert.equal(made.length, 0, 'no context before the gesture');
+  assert.deepEqual(requested, []);
+  engine.start();
+  engine.setLevels(NIGHT);
+  let notesWhileLoading = 0;
+  for (let i = 0; i < 400 && !engine.stats().real.audible; i++) {
+    made[0].advance(0.1);
+    engine.tick();
+    await new Promise((r) => setImmediate(r));
+    notesWhileLoading = engine.stats().counts.notes;
   }
-  await r.run(20);
-  assert.equal(r.engine.stats().lofi.chain, false, 'the lofi chain is freed after its fall');
-  // real -> lofi
-  r.engine.setStyle('lofi');
-  const barsBefore = r.engine.stats().counts.lofiBars;
-  let ticksBeforeBar = 0;
-  for (let i = 0; i < 60 && r.engine.stats().lofi.nextStart === null; i++) {
-    await r.run(0.1);
-    if (r.engine.stats().lofi.nextStart === null) {
-      ticksBeforeBar++;
-      assert.equal(r.engine.stats().real.leaving, false, 'the tracks play on while the first bar is made');
-    }
-  }
-  assert.ok(ticksBeforeBar >= 1, 'the first bar takes a few ticks to make: ' + ticksBeforeBar);
-  await r.run(0.3);
-  assert.equal(r.engine.stats().real.leaving, true, 'the tracks fall once the first bar is scheduled');
-  await r.run(8);
-  const s = r.engine.stats();
-  assert.ok(s.counts.lofiBars > barsBefore, 'bars are scheduled');
-  assert.equal(s.real.leaving || !s.real.chain, true);
-  await r.run(10);
-  assert.equal(r.engine.stats().real.chain, false);
-  const lg2 = lofiGain();
-  const rise2 = lg2.gain.events.filter((e) => e[0] === 'curve' && e[1][0] === 0 && e[1][127] > 0);
-  assert.equal(rise2.length, 1, 'the lofi rises on an equal-power curve after the tracks');
-  assert.ok(rise2[0][3] >= 3);
-  for (const n of c.nodes) if (n.gain && n.gain.discontinuities !== undefined) assert.equal(n.gain.discontinuities, 0, 'no running curve was cut');
-  assert.ok(r.engine.stats().peakNodes <= 24, 'peak nodes ' + r.engine.stats().peakNodes);
+  assert.equal(requested.length, 1, 'one track is asked');
+  assert.equal(engine.stats().real.audible, true, 'the track plays');
+  assert.equal(notesWhileLoading, 0, 'no soft note while waiting for the first track (nothing was heard before)');
 });
 
 test('real engine: leaving the style while a track is still loading drops the answer (nothing is built)', async () => {
@@ -514,27 +489,29 @@ test('real engine: the level follows the music slider scale and the sky (rain lo
 });
 
 // ------------------------------------------------------------------ the setting
-test('real setting: saved and read back; an old save (no field) or an unknown name falls back on soft; defaults unchanged', () => {
-  assert.equal(defaultSettings().musicStyle, 'soft');
+test('real setting: saved and read back; an old save (no field), the removed style "lofi" or an unknown name falls back on the default (real); defaults unchanged', () => {
+  assert.equal(defaultSettings().musicStyle, 'real');
   const s = newSave(7);
-  const saved = makeSave(s, { seed: 4, sessions: 1, clock: null, weather: null, pity: {}, book: {}, settings: { ...s.settings, musicStyle: 'real' } });
+  const saved = makeSave(s, { seed: 4, sessions: 1, clock: null, weather: null, pity: {}, book: {}, settings: { ...s.settings, musicStyle: 'soft' } });
   const back = parseSave(JSON.stringify(saved));
   assert.equal(back.status, 'ok');
-  assert.equal(back.save.settings.musicStyle, 'real');
+  assert.equal(back.save.settings.musicStyle, 'soft');
   const old = JSON.parse(JSON.stringify(saved));
   delete old.settings.musicStyle;
-  assert.equal(parseSave(JSON.stringify(old)).save.settings.musicStyle, 'soft');
-  assert.equal(normalizeSave({ ...old, settings: { ...old.settings, musicStyle: 'jazz' } }).settings.musicStyle, 'soft');
+  assert.equal(parseSave(JSON.stringify(old)).save.settings.musicStyle, 'real');
+  assert.equal(normalizeSave({ ...old, settings: { ...old.settings, musicStyle: 'jazz' } }).settings.musicStyle, 'real');
+  assert.equal(normalizeSave({ ...old, settings: { ...old.settings, musicStyle: 'lofi' } }).settings.musicStyle, 'real', 'the generated lofi was removed: an old choice of it falls back');
   assert.deepEqual(validateSave({ ...old, settings: { ...old.settings, musicStyle: 'real' } }), []);
 });
 
-test('real setting: the three style buttons exist in the page with names in both languages (parity checked in strings.test.js)', async () => {
+test('real setting: the two style buttons exist in the page with names in both languages (parity checked in strings.test.js)', async () => {
   const html = readFileSync(join(ROOT, 'index.html'), 'utf8');
-  for (const st of ['soft', 'lofi', 'real']) assert.ok(html.includes(`data-style="${st}"`), st);
+  for (const st of ['soft', 'real']) assert.ok(html.includes(`data-style="${st}"`), st);
+  assert.ok(!html.includes('data-style="lofi"'), 'the generated lofi button is gone');
   const fr = (await import('../src/data/strings.fr.js')).default;
   const en = (await import('../src/data/strings.en.js')).default;
-  assert.equal(fr['btn.styleReal'], 'Vrais morceaux lofi');
-  assert.equal(en['btn.styleReal'], 'Real lofi tracks');
+  assert.equal(fr['btn.styleReal'], 'Vrai lofi');
+  assert.equal(en['btn.styleReal'], 'Real lofi');
 });
 
 // ------------------------------------------------------------------ the files themselves

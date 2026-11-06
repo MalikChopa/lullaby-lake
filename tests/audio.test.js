@@ -31,6 +31,7 @@ function rig({ seed = 7, analyser = false } = {}) {
     analyser,
     timers: { set: (f) => ((tickFn = f), 1), clear: () => (tickFn = null), after: (f, ms) => afters.push({ f, ms }) },
   });
+  engine.setStyle('soft'); // these tests are about the generated sounds; the engine's own default is the recorded lofi (tests/real-music.test.js)
   /** Moves audio time forward by s seconds in 0.1 s steps, running the scheduler each step. */
   const run = (s, each = null) => {
     const c = made[0];

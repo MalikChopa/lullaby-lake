@@ -2,7 +2,9 @@
 
 **Un lac, une canne, tout le temps du monde.** Un petit jeu de pêche zen dans le navigateur, en pixel art : on regarde, on respire, on remplit son carnet de pêche.
 
-[English version](README.en.md)
+### ▶ [Jouer maintenant : malikchopa.github.io/lullaby-lake](https://malikchopa.github.io/lullaby-lake/)
+
+*Dans le navigateur, sans installation, sans compte, sans pub. Sur téléphone, en paysage.*  ·  [English version](README.en.md)
 
 ![Lullaby Lake : un pêcheur sur un ponton au crépuscule, une touche, une perche ambrée dans le carnet, puis le lac sous la pluie de nuit](docs/media/lullaby-lake.gif)
 
@@ -14,11 +16,12 @@
 - **24 poissons à collectionner**, dessinés pour le jeu. Chacun a ses heures et sa météo : certains sortent surtout la nuit, ou plutôt sous la pluie. Le carnet donne un indice pour les trouver.
 - **Un lac vivant** : jour, crépuscule, nuit et aube qui se fondent doucement (une journée dure 8 minutes), soleil, lune, étoiles, nuages, pluie et brume.
 - **Un lac habité** : un chat qui s'étire, bâille et s'endort la nuit, des oiseaux qui passent de temps en temps (héron, oies, hibou), une grenouille, des libellules, des poissons qui sautent au loin, une chauve-souris au crépuscule, une étoile filante rare par ciel dégagé. Tout est silencieux et discret, et reste immobile avec « mouvement réduit ».
-- **Un son presque tout fabriqué par le code** (Web Audio : eau, vent, pluie, grillons, oiseaux, et deux styles de musique générés : douce ou lofi). Un troisième style, « Vrais morceaux lofi », joue **3 morceaux enregistrés** de l'auteur omfgdude, libres de droits (CC0, voir `THIRD-PARTY`) ; ils ne sont chargés que si tu choisis ce style. Le son démarre seulement après « Commencer » ; on peut jouer sans le son.
+- **Un son presque tout fabriqué par le code** (Web Audio : eau, vent, pluie, grillons, oiseaux, et une musique douce générée). La musique par défaut, « Vrai lofi », joue **3 morceaux enregistrés** de l'auteur omfgdude, libres de droits (CC0, voir `THIRD-PARTY`) ; ils ne sont chargés qu'après « Commencer », jamais avec « Sans le son », et on peut passer à la musique « Douce » dans les réglages. Le son démarre seulement après « Commencer » ; on peut jouer sans le son.
 - **Pas de chrono qui presse.** Une seule exception, voulue : quand un poisson mord, il repart doucement après 8 secondes puis revient plus tard (le même poisson, rien n'est perdu, aucun compte à rebours à l'écran). Une option des réglages, « Laisser le poisson attendre », supprime cette limite.
 - **Ta partie est gardée dans ton navigateur** (carnet, réglages), sans compte et sans rien envoyer nulle part.
 - **Mode photo** : une image PNG de 1920 × 1080 du lac, sans l'interface.
 - **Hors ligne** après le premier chargement (service worker). Les 3 morceaux enregistrés ne sont pas dans ce premier chargement : un morceau marche hors ligne une fois écouté.
+- **S'adapte à la fenêtre** : l'image garde son format 16:9 (rien n'est coupé ni déformé) et le reste de la fenêtre est rempli par un prolongement doux du ciel et de l'eau, pas par des bandes noires.
 - **Français et anglais.**
 
 ## Captures
@@ -29,7 +32,7 @@
 
 ## Jouer
 
-**En ligne** : pas encore publié. <à compléter après publication>
+**En ligne** : **<https://malikchopa.github.io/lullaby-lake/>**, rien à installer. Le jeu est publié avec GitHub Pages, à partir de ce dépôt.
 
 **En local** (il faut [Node.js](https://nodejs.org/) 22 ou plus récent ; testé avec Node 22.14 ; aucune installation de paquet, `npm install` n'est pas nécessaire) :
 
@@ -72,8 +75,8 @@ Les lecteurs d'écran n'ont **pas** été essayés (voir plus bas).
 - [PixiJS](https://pixijs.com/) 8.22.0 pour l'affichage, copié dans `vendor/` (aucun CDN, aucun réseau au lancement).
 - Le décor, le pêcheur, l'eau, la pluie et les poissons sont **peints par le code** à une résolution de 480 × 270 pixels, agrandie en pixels nets. Les poissons, les ambiances et les textes sont dans des fichiers de données (`src/data/`) : ajouter une espèce ne touche pas au cœur du jeu.
 - Le cœur du jeu (`src/core/`) ne dépend ni du navigateur ni de l'affichage, ce qui permet de le tester sans navigateur.
-- Son : Web Audio. L'ambiance, les effets et les styles de musique « Douce » et « Lofi » sont synthétisés. Le style « Vrais morceaux lofi » lit 3 fichiers enregistrés (`assets/music/`, 6,5 Mo, CC0 : voir `THIRD-PARTY`), chargés seulement à la demande et gardés par le service worker après la première écoute.
-- Tests : `npm test` (le lanceur de tests intégré à Node, sans dépendance ; plus de 250 tests : tirage des poissons, sauvegarde, jour/nuit, textes FR/EN, service worker, absence d'accès réseau…).
+- Son : Web Audio. L'ambiance, les effets et la musique « Douce » sont synthétisés. La musique par défaut, « Vrai lofi », lit 3 fichiers enregistrés (`assets/music/`, 6,5 Mo, CC0 : voir `THIRD-PARTY`), chargés après « Commencer » et gardés par le service worker après la première écoute ; s'ils ne se chargent pas (hors ligne au premier lancement), la musique douce prend le relais en silence.
+- Tests : `npm test` (le lanceur de tests intégré à Node, sans dépendance ; plus de 270 tests : tirage des poissons, sauvegarde, jour/nuit, textes FR/EN, service worker, absence d'accès réseau…).
 - Après avoir modifié un fichier du site, `npm run sw` met à jour la liste de fichiers du mode hors ligne (le test du service worker échoue sinon).
 - Poids du jeu au premier chargement : environ 381 Kio une fois tous les fichiers compressés (mesuré en compressant l'ensemble le 2026-11-05 ; les 3 morceaux de musique, 6,5 Mo, n'en font pas partie).
 

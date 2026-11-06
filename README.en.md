@@ -2,7 +2,9 @@
 
 **A lake, a fishing rod, all the time in the world.** A small, cozy fishing game for the browser, in pixel art: you watch, you breathe, you fill your fishing journal.
 
-[Version française](README.md)
+### ▶ [Play now: malikchopa.github.io/lullaby-lake](https://malikchopa.github.io/lullaby-lake/)
+
+*In your browser, nothing to install, no account, no ads. On a phone, in landscape.*  ·  [Version française](README.md)
 
 ![Lullaby Lake: an angler on a pier at dusk, a bite, an amber perch added to the journal, then the lake under night rain](docs/media/lullaby-lake.gif)
 
@@ -14,11 +16,12 @@
 - **24 fish to collect**, drawn for the game. Each one has its own hours and weather: some mostly come out at night, or more often in the rain. The journal gives a hint to find them.
 - **A living lake**: day, dusk, night and dawn blend slowly into each other (a full day lasts 8 minutes), with sun, moon, stars, clouds, rain and mist.
 - **A lake with life**: a cat that stretches, yawns and curls up to sleep at night, birds passing now and then (heron, geese, owl), a frog, dragonflies, fish jumping far away, a bat at dusk, a rare shooting star under a clear sky. Everything is silent and discreet, and stays still with "reduced motion".
-- **Sound almost entirely made by code** (Web Audio: water, wind, rain, crickets, birds, and two generated music styles: soft or lofi). A third style, "Real lofi tracks", plays **3 recorded tracks** by omfgdude, free of rights (CC0, see `THIRD-PARTY`); they are loaded only if you choose that style. The sound only starts after "Start"; you can play without sound.
+- **Sound almost entirely made by code** (Web Audio: water, wind, rain, crickets, birds, and a generated soft music). The default music, "Real lofi", plays **3 recorded tracks** by omfgdude, free of rights (CC0, see `THIRD-PARTY`); they are loaded only after "Start", never with "No sound", and you can switch to the "Soft" music in the settings. The sound only starts after "Start"; you can play without sound.
 - **No ticking clock.** One deliberate exception: when a fish bites, it gently swims away after 8 seconds and comes back later (the same fish, nothing is lost, no countdown on screen). The setting "Let the fish wait" removes that limit.
 - **Your game is kept in your browser** (journal, settings), with no account and nothing sent anywhere.
 - **Photo mode**: a 1920 x 1080 PNG image of the lake, without the interface.
 - **Works offline** after the first load (service worker). The 3 recorded tracks are not part of that first load: a track works offline once it has been listened to.
+- **Fits the window**: the picture keeps its 16:9 shape (nothing is cropped or distorted) and the rest of the window is filled by a soft extension of the sky and the water, not by black bars.
 - **French and English.**
 
 ## Screenshots
@@ -31,7 +34,7 @@
 
 ## Play
 
-**Online**: not published yet. [to be completed after publication]
+**Online**: **<https://malikchopa.github.io/lullaby-lake/>**, nothing to install. The game is published with GitHub Pages, from this repository.
 
 **Locally** (you need [Node.js](https://nodejs.org/) 22 or newer; tested with Node 22.14; no package to install, `npm install` is not needed):
 
@@ -74,8 +77,8 @@ Screen readers have **not** been tried (see below).
 - [PixiJS](https://pixijs.com/) 8.22.0 for display, copied into `vendor/` (no CDN, no network access at start-up).
 - The scenery, the angler, the water, the rain and the fish are **painted by code** at a resolution of 480 x 270 pixels, scaled up with crisp pixels. Fish, moods and texts live in data files (`src/data/`): adding a species does not touch the core of the game.
 - The game core (`src/core/`) depends neither on the browser nor on the display, so it can be tested without a browser.
-- Sound: Web Audio. The ambience, the effects and the "Soft" and "Lofi" music styles are synthesised. The "Real lofi tracks" style plays 3 recorded files (`assets/music/`, 6.5 MB, CC0: see `THIRD-PARTY`), loaded only on request and kept by the service worker after the first listen.
-- Tests: `npm test` (Node's built-in test runner, no dependency; more than 250 tests: fish draw, saving, day/night, FR/EN texts, service worker, no network access...).
+- Sound: Web Audio. The ambience, the effects and the "Soft" music are synthesised. The default music, "Real lofi", plays 3 recorded files (`assets/music/`, 6.5 MB, CC0: see `THIRD-PARTY`), loaded after "Start" and kept by the service worker after the first listen; if they cannot be loaded (offline on the very first visit), the soft music takes over silently.
+- Tests: `npm test` (Node's built-in test runner, no dependency; more than 270 tests: fish draw, saving, day/night, FR/EN texts, service worker, no network access...).
 - After changing a site file, `npm run sw` updates the offline file list (the service-worker test fails otherwise).
 - Download size on first load: about 381 KiB with all files compressed (measured by compressing the whole set on 2026-11-05; the 3 music tracks, 6.5 MB, are not included).
 

@@ -9,6 +9,7 @@
 </head>
 <body>
 <div id="wrap">
+  <canvas id="backdrop" aria-hidden="true" hidden></canvas>
   <div id="stage">
     <canvas id="scene" width="480" height="270" tabindex="0" data-i18n-aria="scene.label.dusk"></canvas>
     <div class="vig" aria-hidden="true"></div>
@@ -82,7 +83,7 @@
           <div class="vol"><label class="lbl" for="volMusic" data-i18n="settings.vol.music"></label><input type="range" id="volMusic" min="0" max="100" step="5"><output for="volMusic" id="outMusic"></output></div>
           <div class="set"><span class="lbl" id="lblStyle" data-i18n="settings.musicStyle"></span>
             <span class="seg" role="group" aria-labelledby="lblStyle" id="segStyle">
-              <button data-style="soft" data-i18n="btn.styleSoft"></button><button data-style="lofi" data-i18n="btn.styleLofi"></button><button data-style="real" data-i18n="btn.styleReal"></button>
+              <button data-style="soft" data-i18n="btn.styleSoft"></button><button data-style="real" data-i18n="btn.styleReal"></button>
             </span></div>
           <label class="chk"><input type="checkbox" id="chkMute"><span data-i18n="settings.mute"></span></label>
           <label class="chk"><input type="checkbox" id="chkRm"><span data-i18n="settings.reducedMotion"></span></label>

@@ -11,7 +11,10 @@
 html, body { margin: 0; height: 100%; background: #0e0a20; color: #fdf2dc; font-family: "Pixelify Sans", monospace; font-weight: 400; }
 body { overflow: hidden; }
 [hidden] { display: none !important; }
-#wrap { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
+#wrap { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; position: relative; }
+/* the window around the 16:9 picture: a soft extension of its edges (render/backdrop.js); hidden when the window is 16:9 */
+#backdrop { position: absolute; inset: 0; width: 100%; height: 100%; filter: blur(26px) brightness(.84); pointer-events: none; }
+#stage { z-index: 1; }
 #stage {
   --u: calc(100cqw / 480);
   --t-body: max(calc(14px * var(--fs)), calc(var(--u) * 8.5 * var(--fs)));
