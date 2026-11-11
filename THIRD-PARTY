@@ -2,245 +2,14 @@ THIRD-PARTY NOTICES / AVIS DES ŒUVRES TIERCES - Lullaby Lake
 ============================================================
 
 Lullaby Lake (code MIT, drawings CC BY 4.0: see LICENSE and LICENSE-ART)
-ships three third-party works inside vendor/ and three music tracks inside
-assets/music/. They are not covered by LICENSE / LICENSE-ART; each keeps its own
+ships two third-party works inside vendor/ (three.js and the Pixelify Sans font), three music tracks inside assets/music/
+and 3D models made from Kenney packs inside refonte/assets/models/. They are not covered by LICENSE / LICENSE-ART; each keeps its own
 license, reproduced or referred to below.
 Nothing is downloaded at run time from another site: every file, the music tracks
 included, is served from this repository.
 
 
-1. PixiJS 8.22.0  -  MIT License
-------------------------------------------------------------
-File        : vendor/pixi/pixi.min.mjs (browser bundle, unmodified)
-Source      : https://cdn.jsdelivr.net/npm/pixi.js@8.22.0/dist/pixi.min.mjs (npm mirror)
-SHA-256     : 66257bc46776898bf8c54daaed402ed8f9ac109379c47b2dfa8aa048544d2953
-              (from vendor/pixi/VERSION; compared on 2026-11-02 with the official jsDelivr listing)
-License text: vendor/pixi/LICENSE, copied verbatim here:
-
-The MIT License
-
-Copyright (c) 2013-2023 Mathew Groves, Chad Engler
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
-
-2. tiny-lru 11.4.7  -  BSD-3-Clause  (bundled inside pixi.min.mjs)
-------------------------------------------------------------
-Where found : the bundle vendor/pixi/pixi.min.mjs contains, around line 1651,
-              a comment block that reads as follows (the e-mail address shown in it is left out here):
-
-                 tiny-lru
-                 @copyright 2026 Jason Mulligan <e-mail address omitted here>
-                 @license BSD-3-Clause
-                 @version 11.4.7
-
-              It sits right before the class that implements a least-recently-used
-              cache. This is the "@license BSD-3-Clause" mention found in the file;
-              no other "@license" mention exists in it.
-Notice      : Copyright 2026 Jason Mulligan (the bundle also shows an e-mail address, not repeated here),
-              BSD 3-Clause License (SPDX identifier: BSD-3-Clause).
-Full text   : not in the bundle (only the copyright line and the license name).
-              Copied verbatim on 2026-11-04 from the official repository, file LICENSE at tag 11.4.7
-              (https://github.com/avoidwork/tiny-lru):
-
-              Copyright (c) 2026, Jason Mulligan
-              All rights reserved.
-
-              Redistribution and use in source and binary forms, with or without
-              modification, are permitted provided that the following conditions are met:
-
-              * Redistributions of source code must retain the above copyright notice, this
-                list of conditions and the following disclaimer.
-
-              * Redistributions in binary form must reproduce the above copyright notice,
-                this list of conditions and the following disclaimer in the documentation
-                and/or other materials provided with the distribution.
-
-              * Neither the name of tiny-lru nor the names of its
-                contributors may be used to endorse or promote products derived from
-                this software without specific prior written permission.
-
-              THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-              AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-              IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-              DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-              FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-              DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-              SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-              CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-              OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-              OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-Other libraries of the PixiJS package
-              The package pixi.js 8.22.0 declares these runtime dependencies (read on 2026-11-04 from
-              https://registry.npmjs.org/pixi.js/8.22.0, field "dependencies"). The browser bundle
-              vendor/pixi/pixi.min.mjs may contain some or all of them without a notice of its own; their
-              notices are given here to be safe. Version ranges are those of that package; the text of each
-              licence was read on 2026-11-04 from a version inside the range (the licence type is the same).
-              The type-only packages (@types/earcut, @webgpu/types) put no code in the bundle.
-              E-mail addresses of third-party authors that appear in these texts are replaced by <e-mail omitted>.
-
-2.1 earcut  -  ISC  (range 3.x, text read from 3.2.4)
-              ISC License
-
-              Copyright (c) 2026, Mapbox
-
-              Permission to use, copy, modify, and/or distribute this software for any purpose
-              with or without fee is hereby granted, provided that the above copyright notice
-              and this permission notice appear in all copies.
-
-              THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-              REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND
-              FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-              INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
-              OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
-              TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
-              THIS SOFTWARE.
-
-2.2 eventemitter3  -  MIT  (range 5.x, text read from 5.0.4)
-              The MIT License (MIT)
-
-              Copyright (c) 2014 Arnout Kazemier
-
-              Permission is hereby granted, free of charge, to any person obtaining a copy
-              of this software and associated documentation files (the "Software"), to deal
-              in the Software without restriction, including without limitation the rights
-              to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-              copies of the Software, and to permit persons to whom the Software is
-              furnished to do so, subject to the following conditions:
-
-              The above copyright notice and this permission notice shall be included in all
-              copies or substantial portions of the Software.
-
-              THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-              IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-              FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-              AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-              LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-              OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-              SOFTWARE.
-
-2.3 ismobilejs  -  MIT  (range 1.x, text read from 1.1.1)
-              MIT License
-
-              Copyright (c) 2019 Kai Mallea
-
-              Permission is hereby granted, free of charge, to any person obtaining a copy
-              of this software and associated documentation files (the "Software"), to deal
-              in the Software without restriction, including without limitation the rights
-              to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-              copies of the Software, and to permit persons to whom the Software is
-              furnished to do so, subject to the following conditions:
-
-              The above copyright notice and this permission notice shall be included in all
-              copies or substantial portions of the Software.
-
-              THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-              IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-              FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-              AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-              LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-              OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-              SOFTWARE.
-
-2.4 gifuct-js  -  MIT  (range 2.x, text read from 2.1.2)
-              The MIT License (MIT)
-
-              Copyright (c) 2015 Matt Way
-
-              Permission is hereby granted, free of charge, to any person obtaining a copy
-              of this software and associated documentation files (the "Software"), to deal
-              in the Software without restriction, including without limitation the rights
-              to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-              copies of the Software, and to permit persons to whom the Software is
-              furnished to do so, subject to the following conditions:
-
-              The above copyright notice and this permission notice shall be included in all
-              copies or substantial portions of the Software.
-
-              THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-              IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-              FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-              AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-              LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-              OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-              SOFTWARE.
-
-2.5 @pixi/colord (fork of colord; text of the original colord repository)  -  MIT  (range 2.x, 2.9.6)
-              MIT License
-
-              Copyright (c) 2020 Vlad Shilov <e-mail omitted>
-
-              Permission is hereby granted, free of charge, to any person obtaining a copy
-              of this software and associated documentation files (the "Software"), to deal
-              in the Software without restriction, including without limitation the rights
-              to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-              copies of the Software, and to permit persons to whom the Software is
-              furnished to do so, subject to the following conditions:
-
-              The above copyright notice and this permission notice shall be included in all
-              copies or substantial portions of the Software.
-
-              THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-              IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-              FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-              AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-              LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-              OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-              SOFTWARE.
-
-2.6 parse-svg-path  -  MIT  (range 0.2.x, text read from 0.2.0)
-              The MIT License
-
-              Copyright (c) 2013 Jake Rosoman <e-mail omitted>
-
-              Permission is hereby granted, free of charge, to any person obtaining
-              a copy of this software and associated documentation files (the
-              'Software'), to deal in the Software without restriction, including
-              without limitation the rights to use, copy, modify, merge, publish,
-              distribute, sublicense, and/or sell copies of the Software, and to
-              permit persons to whom the Software is furnished to do so, subject to
-              the following conditions:
-
-              The above copyright notice and this permission notice shall be
-              included in all copies or substantial portions of the Software.
-
-              THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
-              EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-              MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-              IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-              CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-              TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-              SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-2.7 @xmldom/xmldom  -  MIT  (range 0.8.x, text read from 0.8.15)
-              Copyright 2019 - present Christopher J. Brody and other contributors, as listed in: https://github.com/xmldom/xmldom/graphs/contributors
-              Copyright 2012 - 2017 @jindw <e-mail omitted> and other contributors, as listed in: https://github.com/jindw/xmldom/graphs/contributors
-
-              Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-              The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-              THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
-3. Pixelify Sans (Fontsource 5.3.0, latin 400)  -  SIL Open Font License 1.1
+1. Pixelify Sans (Fontsource 5.3.0, latin 400)  -  SIL Open Font License 1.1
 ------------------------------------------------------------
 File        : vendor/fonts/pixelify-sans/pixelify-sans-latin-400-normal.woff2 (7692 bytes, unmodified)
 Source      : https://cdn.jsdelivr.net/npm/@fontsource/pixelify-sans@5.3.0/files/pixelify-sans-latin-400-normal.woff2
@@ -343,7 +112,7 @@ FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE.
 
 
-4. Three music tracks by omfgdude  -  CC0 1.0 (public domain dedication)
+2. Three music tracks by omfgdude  -  CC0 1.0 (public domain dedication)
 ------------------------------------------------------------
 Where       : assets/music/ (served as they are; the game plays them only when the music style
               default music "Vrai lofi" / "Real lofi" is on). Unmodified copies, renamed only.
@@ -369,3 +138,71 @@ License     : CC0 1.0 Universal (https://creativecommons.org/publicdomain/zero/1
 
 The same list, with the same hashes, is in assets/music/SOURCES.txt; tools/hygiene.mjs checks the hashes of
 the public copy against it. The game itself only fades these tracks in and out and adjusts their level.
+
+3. three.js 0.187.0  -  MIT License  (the HD-2D game, refonte/)
+------------------------------------------------------------
+Files       : vendor/three/ (unmodified copies of build/three.module.js, build/three.core.js and some add-ons of
+              examples/jsm, placed without the examples/jsm prefix; see vendor/three/SOURCES.txt)
+Source      : the npm package three 0.187.0, tarball three-0.187.0.tgz
+              (SHA-256 ff540832ded0cfe919764d24a3d88f3e2a05f23303f876423e4f893841e90728)
+SHA-256 of each file (the same list as vendor/three/SOURCES.txt; tools/hygiene.mjs checks them):
+  LICENSE                                1081 bytes  8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc
+  math/SimplexNoise.js                  15148 bytes  4b1455617135e6b477de76244de07547d95570643379b72f4758e50161b06072
+  postprocessing/BokehPass.js            5532 bytes  3e1b0b0077a190fcea7f728c3929d1b33fb182bbac15549635e113193d868f45
+  postprocessing/ClearPass.js            2167 bytes  69c525e8e3be28999453177a9d0bd1771d27a4d04378307242802fec84301bcb
+  postprocessing/EffectComposer.js       8501 bytes  4e079a5886152d7e529a59aef644e968ab4d32c6a33ce016b36bf29b2eac26f7
+  postprocessing/GTAOPass.js            20157 bytes  78f278563029f53a97c662bf9bcc5bf89b12b3e9ab2b80270dbb53c2d0a81162
+  postprocessing/MaskPass.js             4694 bytes  7cd08eee9d5d6f5578beaddbdcbe9c384f6873810af27f22ab7db3ceeb127aa3
+  postprocessing/OutputPass.js           4184 bytes  02e4a261af34de71338185e9e87f0cbe5cba9115608d984363e1269dec1d2272
+  postprocessing/Pass.js                 4218 bytes  444b409c235ead986893c472e720da1b779a56985c7d10b279c7944b52bd61c5
+  postprocessing/RenderPass.js           4280 bytes  817f6c3cdcd0fd41515d112359ea0532568eefb5aabd3b33903957ebca1b8a6a
+  postprocessing/SMAAPass.js            50379 bytes  1a96804b8cb33ba76a67f9a8e77f2d5e2bf47b1a5c9a8476901aa75e24acb85c
+  postprocessing/ShaderPass.js           3228 bytes  e2500a5913b26bbf5148ceaae644c6edcff06a18b01494ee37bf856353d2ab9d
+  postprocessing/UnrealBloomPass.js     15397 bytes  ba8f2fcadfa6588384c9473498f974d81d120f02f0e63a0e59c265202a006b5a
+  shaders/BokehShader.js                 5934 bytes  bd8525158e3574a803f2e2ce5d5e263349a80ee41bf789e71446b9caa256aa9a
+  shaders/CopyShader.js                   729 bytes  a33057d5ac91c43304c186ac0e8816e62bb2ed471d3a00ff3018dfd5c0389718
+  shaders/GTAOShader.js                 12206 bytes  f7663d7726e884cee748d9b86ddc7416a99f81a181342cfbaa0845d993ea09cc
+  shaders/LuminosityHighPassShader.js     1291 bytes  5044f780b6e6cf863947f64c36fe1587132f7fbe395ada863cd1e5f0388dcf1e
+  shaders/OutputShader.js                1876 bytes  353479f77a8d7e2629d49ccac9fc2f5dbfdda5442e0adf867b00377a2fcb0cb2
+  shaders/PoissonDenoiseShader.js        6868 bytes  b07ccfcdcd74f83cffd6d48834b18873545806421204a4d75143bd09756bc92d
+  shaders/SMAAShader.js                 15002 bytes  48ce320a6bf5c33806c4fa13ade7e3ab199f7856838d36b05ae82204db8a1c15
+  three.core.js                       1474799 bytes  613e370f76638fdef83926642bf256dc9615684922de1ce1f63a8583e5d78578
+  three.module.js                      658900 bytes  104f56145899722094556490d787aae0617cc2fc3382f31df02d724ea1aee341
+  loaders/GLTFLoader.js                119861 bytes  532ac726e120039acbcd6cf54328c57acbf7b438176afaa6951257126d11bff1
+  utils/BufferGeometryUtils.js          39153 bytes  7bda2a8ba836b2bcf67cb938d4b9e1bb5d1b1bc616817103ed858c0b58296ce7
+  utils/SkeletonUtils.js                11535 bytes  b1632a703206c3d830de9fcbe515696770d04b71a15ee6b50afa6d2c3298c86f
+License text: vendor/three/LICENSE, copied verbatim here:
+
+The MIT License
+
+Copyright © 2010-2026 three.js authors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+4. 3D models: Kenney asset packs  -  Creative Commons Zero, CC0 1.0 (public domain dedication)
+------------------------------------------------------------
+Where       : refonte/assets/models/*.glb and refonte/assets/models/interior/*.glb (the HD-2D world and its rooms)
+Author      : Kenney (www.kenney.nl) - "Created/distributed by Kenney (www.kenney.nl)"
+Packs       : Nature Kit (2.1), Fantasy Town Kit (2.0), Pirate Kit (2.1), Survival Kit (2.0), Furniture Kit (2.0)
+License     : CC0 1.0 Universal (https://creativecommons.org/publicdomain/zero/1.0/), as stated in the License.txt of each pack.
+              Credit is not required; it is given here and in refonte/assets/models/CREDITS.txt as a courtesy.
+Modified    : yes - each model was converted to a lean GLB (vertex colours, no texture) by refonte/tools/art-bake.mjs, then
+              recoloured, scaled and merged at load time by the game. refonte/assets/models/CREDITS.txt gives, model by model,
+              the pack and the original name, and reproduces the licence note of each pack.

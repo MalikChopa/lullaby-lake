@@ -1,0 +1,277 @@
+Lullaby Lake - 3D models of the HD-2D world (refonte/assets/models/*.glb)
+=======================================================================
+
+These models come from the Kenney asset packs listed below.
+Created/distributed by Kenney (www.kenney.nl) - license: Creative Commons Zero, CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/).
+Crediting Kenney is not mandatory under CC0; we do it anyway, with thanks.
+
+HOW THEY WERE MODIFIED (by refonte/tools/art-bake.mjs, then at load time by refonte/src/world/models.js):
+ - converted to one lean GLB per model: node transforms baked in, colour map / material colours sampled into vertex colours, normals and texture dropped;
+ - recoloured at load time to the game palette (hue anchors, light desaturation, warm tint, quantised levels; house walls and roofs recoloured per building);
+ - scaled and rotated to the footprints of the game map and merged with the other props of each chunk (one draw call per material family).
+No model was redrawn; the game logic, the pixel-art sprites and the textures of the walls, roofs and decks are the project's own.
+
+PACKS USED
+----------
+
+### Nature Kit (folder nature-kit)
+Nature Kit (2.1)
+
+	Created/distributed by Kenney (www.kenney.nl)
+	Creation date: 29-04-2020 01:02
+
+			------------------------------
+
+	License: (Creative Commons Zero, CC0)
+	http://creativecommons.org/publicdomain/zero/1.0/
+
+	This content is free to use in personal, educational and commercial projects.
+	Support us by crediting Kenney or www.kenney.nl (this is not mandatory)
+
+			------------------------------
+
+	Donate:   http://support.kenney.nl
+	Request:  http://request.kenney.nl
+	Patreon:  http://patreon.com/kenney/
+
+	Follow on Twitter for updates:
+	http://twitter.com/KenneyNL
+
+### Fantasy Town Kit (folder fantasy-town-kit_2.0)
+Fantasy Town Kit (2.0)
+
+	Created/distributed by Kenney (www.kenney.nl)
+	Creation date: 03-08-2025 13:56
+	
+			------------------------------
+
+	License: (Creative Commons Zero, CC0)
+	http://creativecommons.org/publicdomain/zero/1.0/
+
+	You can use this content for personal, educational, and commercial purposes.
+
+	Support by crediting 'Kenney' or 'www.kenney.nl' (this is not a requirement)
+
+			------------------------------
+
+	• Website : www.kenney.nl
+	• Donate  : www.kenney.nl/donate
+
+	• Patreon : patreon.com/kenney
+	
+	Follow on social media for updates:
+
+	• Twitter:	 twitter.com/KenneyNL
+	• BlueSky:	 kenney.bsky.social
+	• Instagram: instagram.com/kenney_nl
+
+### Pirate Kit (folder pirate-kit)
+Pirate Kit (2.1)
+
+	Created/distributed by Kenney (www.kenney.nl)
+	Creation date: 17-02-2026 13:57
+	
+			------------------------------
+
+	License: (Creative Commons Zero, CC0)
+	http://creativecommons.org/publicdomain/zero/1.0/
+
+	You can use this content for personal, educational, and commercial purposes.
+
+	Support by crediting 'Kenney' or 'www.kenney.nl' (this is not a requirement)
+
+			------------------------------
+
+	• Website : www.kenney.nl
+	• Donate  : www.kenney.nl/donate
+
+	• Patreon : patreon.com/kenney
+	
+	Follow on social media for updates:
+
+	• Twitter:	 twitter.com/KenneyNL
+	• BlueSky:	 kenney.bsky.social
+	• Instagram: instagram.com/kenney_nl
+
+### Survival Kit (folder survival-kit)
+Survival Kit (2.0)
+
+	Created/distributed by Kenney (www.kenney.nl)
+	Creation date: 03-04-2024 14:59
+	
+			------------------------------
+
+	License: (Creative Commons Zero, CC0)
+	http://creativecommons.org/publicdomain/zero/1.0/
+
+	You can use this content for personal, educational, and commercial purposes.
+
+	Support by crediting 'Kenney' or 'www.kenney.nl' (this is not a requirement)
+
+			------------------------------
+
+	• Website : www.kenney.nl
+	• Donate  : www.kenney.nl/donate
+
+	• Patreon : patreon.com/kenney
+	
+	Follow on social media for updates:
+
+	• Twitter:   twitter.com/KenneyNL
+	• Instagram: instagram.com/kenney_nl
+	• Mastodon:  mastodon.gamedev.place/@kenney
+
+### Furniture Kit (folder furniture-kit)
+Furniture Kit (2.0)
+
+	Created/distributed by Kenney (www.kenney.nl)
+	Creation date: 20-10-2018 16:21
+
+			------------------------------
+
+	License: (Creative Commons Zero, CC0)
+	http://creativecommons.org/publicdomain/zero/1.0/
+
+	This content is free to use in personal, educational and commercial projects.
+	Support us by crediting Kenney or www.kenney.nl (this is not mandatory)
+
+			------------------------------
+
+	Donate:   http://support.kenney.nl
+	Request:  http://request.kenney.nl
+	Patreon:  http://patreon.com/kenney/
+
+	Follow on Twitter for updates:
+	http://twitter.com/KenneyNL
+
+MODEL FILES USED (shipped file <- pack / model name)
+---------------------------------------------------
+pine_a.glb  <-  Nature Kit / tree_pineTallA
+pine_b.glb  <-  Nature Kit / tree_pineTallB
+pine_c.glb  <-  Nature Kit / tree_pineTallC_detailed
+pine_d.glb  <-  Nature Kit / tree_pineRoundA
+pine_e.glb  <-  Nature Kit / tree_pineRoundC
+pine_f.glb  <-  Nature Kit / tree_pineDefaultA
+tree_a.glb  <-  Nature Kit / tree_oak
+tree_b.glb  <-  Nature Kit / tree_detailed
+bush_a.glb  <-  Nature Kit / plant_bush
+bush_b.glb  <-  Nature Kit / plant_bushDetailed
+bush_c.glb  <-  Nature Kit / plant_bushLarge
+bush_d.glb  <-  Nature Kit / plant_bushTriangle
+stone_l1.glb  <-  Nature Kit / stone_largeA
+stone_l2.glb  <-  Nature Kit / stone_largeC
+stone_l3.glb  <-  Nature Kit / stone_largeE
+stone_s1.glb  <-  Nature Kit / stone_smallA
+stone_s2.glb  <-  Nature Kit / stone_smallD
+stone_s3.glb  <-  Nature Kit / stone_smallG
+stone_t1.glb  <-  Nature Kit / stone_tallA
+stone_t2.glb  <-  Nature Kit / stone_tallC
+stone_t3.glb  <-  Nature Kit / stone_tallH
+stump_a.glb  <-  Nature Kit / stump_old
+stump_b.glb  <-  Nature Kit / stump_roundDetailed
+log_a.glb  <-  Nature Kit / log
+log_b.glb  <-  Nature Kit / log_large
+lily_l.glb  <-  Nature Kit / lily_large
+lily_s.glb  <-  Nature Kit / lily_small
+mush_r.glb  <-  Nature Kit / mushroom_redGroup
+mush_t.glb  <-  Nature Kit / mushroom_tanGroup
+mush_s.glb  <-  Nature Kit / mushroom_red
+wall_block.glb  <-  Fantasy Town Kit / wall-block
+wall_wood.glb  <-  Fantasy Town Kit / wall-wood-block
+roof.glb  <-  Fantasy Town Kit / roof-gable
+chimney.glb  <-  Fantasy Town Kit / chimney
+lantern.glb  <-  Fantasy Town Kit / lantern
+fence.glb  <-  Fantasy Town Kit / fence
+boat_row.glb  <-  Pirate Kit / boat-row-small
+barrel.glb  <-  Survival Kit / barrel
+box.glb  <-  Survival Kit / box
+signpost.glb  <-  Survival Kit / signpost
+bench.glb  <-  Furniture Kit / bench
+campfire.glb  <-  Survival Kit / campfire-pit
+bedroll.glb  <-  Survival Kit / bedroll
+bucket.glb  <-  Survival Kit / bucket
+axe.glb  <-  Survival Kit / tool-axe
+fish_l.glb  <-  Survival Kit / fish-large
+fish_s.glb  <-  Survival Kit / fish
+log_s.glb  <-  Nature Kit / log_stack
+log_sl.glb  <-  Nature Kit / log_stackLarge
+fl_p1.glb  <-  Nature Kit / flower_purpleA
+fl_p2.glb  <-  Nature Kit / flower_purpleC
+fl_r1.glb  <-  Nature Kit / flower_redA
+fl_r2.glb  <-  Nature Kit / flower_redC
+fl_y1.glb  <-  Nature Kit / flower_yellowA
+fl_y2.glb  <-  Nature Kit / flower_yellowC
+fern_a.glb  <-  Nature Kit / grass_leafsLarge
+fern_b.glb  <-  Nature Kit / plant_flatTall
+moss.glb  <-  Nature Kit / hanging_moss
+tree_c.glb  <-  Nature Kit / tree_default
+tree_d.glb  <-  Nature Kit / tree_fat
+tree_e.glb  <-  Nature Kit / tree_thin
+tree_g.glb  <-  Nature Kit / tree_simple
+pine_g.glb  <-  Nature Kit / tree_pineGroundA
+pine_s.glb  <-  Nature Kit / tree_pineSmallA
+pine_k.glb  <-  Nature Kit / tree_cone
+pot.glb  <-  Nature Kit / pot_small
+stump_t.glb  <-  Nature Kit / stump_oldTall
+door.glb  <-  Fantasy Town Kit / wall-wood-door
+window.glb  <-  Fantasy Town Kit / wall-wood-window-shutters
+post.glb  <-  Fantasy Town Kit / pillar-wood
+planks.glb  <-  Fantasy Town Kit / planks
+hedge_l.glb  <-  Fantasy Town Kit / hedge-large
+banner.glb  <-  Fantasy Town Kit / banner-red
+cart.glb  <-  Fantasy Town Kit / cart
+paddle.glb  <-  Pirate Kit / tool-paddle
+
+INTERIOR ROOM MODELS (refonte/assets/models/interior/<id>.glb, loaded only when a room is entered)
+---------------------------------------------------------------------------------------------
+i_bedS.glb  <-  Furniture Kit / bedSingle
+i_bedD.glb  <-  Furniture Kit / bedDouble
+i_shelfC.glb  <-  Furniture Kit / bookcaseClosed
+i_shelfO.glb  <-  Furniture Kit / bookcaseOpen
+i_shelfL.glb  <-  Furniture Kit / bookcaseOpenLow
+i_books.glb  <-  Furniture Kit / books
+i_chair.glb  <-  Furniture Kit / chair
+i_chairC.glb  <-  Furniture Kit / chairCushion
+i_desk.glb  <-  Furniture Kit / desk
+i_lampT.glb  <-  Furniture Kit / lampRoundTable
+i_lampF.glb  <-  Furniture Kit / lampRoundFloor
+i_pot.glb  <-  Furniture Kit / pottedPlant
+i_plant1.glb  <-  Furniture Kit / plantSmall1
+i_plant2.glb  <-  Furniture Kit / plantSmall2
+i_rugR.glb  <-  Furniture Kit / rugRectangle
+i_rugO.glb  <-  Furniture Kit / rugRound
+i_mat.glb  <-  Furniture Kit / rugDoormat
+i_side.glb  <-  Furniture Kit / sideTable
+i_table.glb  <-  Furniture Kit / table
+i_tableC.glb  <-  Furniture Kit / tableCloth
+i_tableO.glb  <-  Furniture Kit / tableRound
+i_cab.glb  <-  Furniture Kit / kitchenCabinet
+i_cabU.glb  <-  Furniture Kit / kitchenCabinetUpper
+i_sink.glb  <-  Furniture Kit / kitchenSink
+i_pillow.glb  <-  Furniture Kit / pillow
+i_bear.glb  <-  Furniture Kit / bear
+i_radio.glb  <-  Furniture Kit / radio
+i_lounge.glb  <-  Furniture Kit / loungeChair
+i_bar.glb  <-  Furniture Kit / kitchenBar
+i_stool.glb  <-  Furniture Kit / stoolBar
+i_coffee.glb  <-  Furniture Kit / tableCoffee
+i_counter.glb  <-  Furniture Kit / kitchenCabinetDrawer
+i_lampW.glb  <-  Furniture Kit / lampWall
+i_seatLow.glb  <-  Furniture Kit / benchCushionLow
+i_coat.glb  <-  Furniture Kit / coatRackStanding
+i_anvil.glb  <-  Survival Kit / workbench-anvil
+i_grind.glb  <-  Survival Kit / workbench-grind
+i_chest.glb  <-  Survival Kit / chest
+i_hammer.glb  <-  Survival Kit / tool-hammer
+i_pickaxe.glb  <-  Survival Kit / tool-pickaxe
+i_bottle.glb  <-  Survival Kit / bottle
+i_barrel.glb  <-  Survival Kit / barrel
+i_bucket.glb  <-  Survival Kit / bucket
+i_axe.glb  <-  Survival Kit / tool-axe
+i_fish.glb  <-  Survival Kit / fish-large
+i_ship.glb  <-  Pirate Kit / ship-small
+i_crateB.glb  <-  Pirate Kit / crate-bottles
+i_lantern.glb  <-  Fantasy Town Kit / lantern
+i_barrelO.glb  <-  Survival Kit / barrel-open
+i_boxO.glb  <-  Survival Kit / box-open
+i_crate.glb  <-  Pirate Kit / crate

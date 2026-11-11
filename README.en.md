@@ -1,114 +1,94 @@
 # Lullaby Lake
 
-**A lake, a fishing rod, all the time in the world.** A small, cozy fishing game for the browser, in pixel art: you watch, you breathe, you fill your fishing journal.
+**A dreaming lake, a cabin, all the time in the world.** A zen fishing game in the browser, in "HD-2D": pixel-art characters walking through a small 3D world, with its lights, shadows, grass and water.
 
-### ▶ [Play now: malikchopa.github.io/lullaby-lake](https://malikchopa.github.io/lullaby-lake/)
+### ▶ [Play Lullaby Lake](https://malikchopa.github.io/lullaby-lake/)
 
-*In your browser, nothing to install, no account, no ads. On a phone, in landscape.*  ·  [Version française](README.md)
+*In the browser: no install, no account, no ads, no purchases. On a phone, in landscape.*  ·  [Version française](README.md)
 
-![Lullaby Lake: an angler on a pier at dusk, a bite, an amber perch added to the journal, then the lake under night rain](docs/media/lullaby-lake.gif)
+![The pier at dusk: the line is in the water, the cat waits nearby, the islet in the distance](docs/media/lac.png)
 
-*The GIF is a montage of two real recordings of the game (dusk, then a moment of night and rain), without sound.*
+| | |
+|---|---|
+| ![The village square at dusk: the shop, the well, Mme Ondine's stall](docs/media/village.png) | ![Inside the cabin: the stove, the bed, the desk with the letters](docs/media/interieur.png) |
+
+*(The screenshots show the French interface; the game also plays in English.)*
+
+## The story: *Lullaby of the Lake* (*La Berceuse du lac*)
+
+You inherit your grandmother's cabin on the shore of a lake. She used to sing there every evening. They say a spirit sleeps at the bottom of the water and the fish are its dreams. By fishing, talking to the villagers and reading the letters left in the cabin, you slowly find **the 8 verses of the lullaby**; each one makes the lake a little more alive. The ending is gentle. Nothing in it is scary.
 
 ## What is it?
 
-- **Zen fishing, no winning.** No score, no game over, nothing is ever lost. You cast the line, wait, reel in, then put the fish back or admire its card.
-- **24 fish to collect**, drawn for the game. Each one has its own hours and weather: some mostly come out at night, or more often in the rain. The journal gives a hint to find them.
-- **A living lake**: day, dusk, night and dawn blend slowly into each other (a full day lasts 8 minutes), with sun, moon, stars, clouds, rain and mist.
-- **A lake with life**: a cat that stretches, yawns and curls up to sleep at night, birds passing now and then (heron, geese, owl), a frog, dragonflies, fish jumping far away, a bat at dusk, a rare shooting star under a clear sky. Everything is silent and discreet, and stays still with "reduced motion".
-- **Sound almost entirely made by code** (Web Audio: water, wind, rain, crickets, birds, and a generated soft music). The default music, "Real lofi", plays **3 recorded tracks** by omfgdude, free of rights (CC0, see `THIRD-PARTY`); they are loaded only after "Start", never with "No sound", and you can switch to the "Soft" music in the settings. The sound only starts after "Start"; you can play without sound.
-- **No ticking clock.** One deliberate exception: when a fish bites, it gently swims away after 8 seconds and comes back later (the same fish, nothing is lost, no countdown on screen). The setting "Let the fish wait" removes that limit.
-- **Your game is kept in your browser** (journal, settings), with no account and nothing sent anywhere.
-- **Photo mode**: a 1920 x 1080 PNG image of the lake, without the interface.
-- **Works offline** after the first load (service worker). The 3 recorded tracks are not part of that first load: a track works offline once it has been listened to.
-- **Fits the window**: the picture keeps its 16:9 shape (nothing is cropped or distorted) and the rest of the window is filled by a soft extension of the sky and the water, not by black bars.
+- **Zen fishing, no defeat.** You progress (gear, spots around the lake, story); you never lose anything. No score, no pressing timer.
+- **Walk the world**: the cabin and its pier, the village (the shop, the workshop, four houses), the reed shallows, the pine forest, then the boat to the deep water and an islet.
+- **Step inside**: every building has its own small room, with the people who live there.
+- **24 fish** to collect, plus **8 dream fish** tied to the story. Each has its hours, weather and spot; the journal gives hints.
+- **A little challenge, never a punishment**: sell your duplicate fish (optional), buy better gear at the shop, orders with no deadline, a short tussle when a fish bites (miss it and the fish swims off, nothing is lost; an "Automatic fight" option exists). Gear wears a little and is repaired at the workshop; it never breaks for good.
+- **A living lake**: day, dusk, night, dawn; sun, clouds, rain, mist; the cabin cat.
+- **Music**: by default 3 lofi tracks by omfgdude, free to use (CC0); or a "Soft" music made by code. Everything can be played **without sound**.
+- **Offline**: after a first visit, the game starts without a network.
+- **Your save stays in your browser**, no account; nothing is sent anywhere.
+- **Photo mode**: a PNG picture of the view, without the interface.
 - **French and English.**
-
-## Screenshots
-
-| Dusk | Night and rain | Fishing journal |
-|---|---|---|
-| ![The lake at dusk](docs/media/screen-dusk.jpg) | ![The lake at night in the rain](docs/media/screen-night-rain.jpg) | ![The fishing journal, half full](docs/media/screen-book.jpg) |
-
-(The screenshots show the French interface; the game also speaks English.)
-
-## Play
-
-**Online**: **<https://malikchopa.github.io/lullaby-lake/>**, nothing to install. The game is published with GitHub Pages, from this repository.
-
-**Locally** (you need [Node.js](https://nodejs.org/) 22 or newer; tested with Node 22.14; no package to install, `npm install` is not needed):
-
-```
-node tools/serve.mjs
-```
-
-Then open the address printed in the terminal in your browser (usually `http://127.0.0.1:4183/`). A small server is needed because browsers refuse to load JavaScript modules from a file opened directly (`file://`). This server only listens on your own computer (`127.0.0.1`).
-
-On the first screen: **Start** (with sound) or **Without sound**. (The game opens in your browser's language, French or English; the first screen has a switch.) Then **press and hold** the mouse button (or your finger, or Space) to cast, and **release** to send the line out. When a fish bites, **press once** to reel it in.
 
 ## Controls
 
-| | Mouse / touch | Keyboard |
-|---|---|---|
-| Cast | press and hold on the scene, release | hold Space or Enter, release |
-| Reel in (when a fish bites) | press on the scene | Space or Enter |
-| Fishing journal | "book" button, top right | `C` |
-| Settings (language, text size, volumes, ...) | "speaker" button | `R` |
-| Photo mode | "camera" button | `P` |
-| Mute / unmute | checkbox in the settings | `M` |
-| Close a panel | the X button | `Esc` |
+| | Keyboard | Mouse | Touch |
+|---|---|---|---|
+| Walk | arrows, or W A S D (QWERTY) / Z Q S D (AZERTY) | click a place | thumb on the left half (small joystick), or tap a place |
+| Cast the line | hold Space or Enter, release | "Fish" button | "Fish" button |
+| Reel in when it bites | Space or Enter | "Fish" button | "Fish" button |
+| Talk, enter, use | Enter near the person or the door | action button | action button, or tap the door |
+| Turn the view a quarter turn | Q / E (QWERTY), A / E (AZERTY) | — | ⟲ ⟳ buttons |
+| Zoom | — | wheel | two fingers |
+| Journal · orders · bag · photo · settings | C · O · B · P · R | menu at the top right | menu at the top right |
+| Mute | M | settings | settings |
+| Close a panel | Escape | ✕ button | ✕ button |
 
-The keyboard shortcuts `C`, `R`, `P`, `M` can be turned off in the settings. On a phone the game is played **in landscape**: in portrait, a message asks you to rotate the device.
+The walking and view keys are read by their place on the keyboard, whatever its layout. The one-letter shortcuts can be turned off in the settings.
 
 ## Accessibility (what is really there)
 
-- **Reduced motion**: a setting (the game also follows the system preference).
-- **Text size**: three sizes (normal, large, very large).
-- **Nothing is carried by colour or sound alone**: a bite is shown by text and a "!" mark; a fish's rarity is written out in words as well as in pips; changes of time of day and weather are written on screen.
-- **Keyboard**: you can cast, reel in, browse the journal (arrow keys) and change the settings without a mouse; checked by scripts in Chrome, not by a person playing with a keyboard.
-- **No time limit** is possible with "Let the fish wait".
-- **Without sound**: the game is complete without sound, and sound only starts after your first gesture.
+- **Nothing rushes you**: no countdown; "Let the fish wait" and "Automatic fight" in the settings.
+- **Reduced motion** (also follows the system setting), **three text sizes**, **quiet interface**.
+- **Nothing relies on colour or sound alone**: the bite, the tussle and the wear are also shown in words and shapes.
+- **The whole game by keyboard**, also by mouse and touch; important messages are placed in areas read by screen readers.
 
-Screen readers have **not** been tried (see below).
+## Play locally
 
-## Technical notes
+The repository holds the game as is, with no build step. Run any static file server at the root of the repository, for example:
 
-- JavaScript (ES modules), no build step: the site is made of files served as they are.
-- [PixiJS](https://pixijs.com/) 8.22.0 for display, copied into `vendor/` (no CDN, no network access at start-up).
-- The scenery, the angler, the water, the rain and the fish are **painted by code** at a resolution of 480 x 270 pixels, scaled up with crisp pixels. Fish, moods and texts live in data files (`src/data/`): adding a species does not touch the core of the game.
-- The game core (`src/core/`) depends neither on the browser nor on the display, so it can be tested without a browser.
-- Sound: Web Audio. The ambience, the effects and the "Soft" music are synthesised. The default music, "Real lofi", plays 3 recorded files (`assets/music/`, 6.5 MB, CC0: see `THIRD-PARTY`), loaded after "Start" and kept by the service worker after the first listen; if they cannot be loaded (offline on the very first visit), the soft music takes over silently.
-- Tests: `npm test` (Node's built-in test runner, no dependency; more than 270 tests: fish draw, saving, day/night, FR/EN texts, service worker, no network access...).
-- After changing a site file, `npm run sw` updates the offline file list (the service-worker test fails otherwise).
-- Download size on first load: about 381 KiB with all files compressed (measured by compressing the whole set on 2026-11-05; the 3 music tracks, 6.5 MB, are not included).
+```
+python -m http.server 8000
+```
 
-## What is verified, what is not
+then open `http://localhost:8000/refonte/`. You need a browser that can show 3D (WebGL 2); otherwise the game says so.
 
-The game has been exercised by **automatic scripts in Chrome on a Windows PC** (click, keyboard, emulated touch, graphics context loss, offline, saving after the browser is closed...). Everything else is written as it is: "not verified".
+## What is not verified
 
-| | Windows | Mac | iPhone | Android |
-|---|---|---|---|---|
-| Chrome | tested (version 156) | not verified | not verified | not verified |
-| Edge | tested (version 156, with the same scripts as Chrome) | not verified | — | — |
-| Firefox | not verified | not verified | — | not verified |
-| Safari | — | not verified | not verified | — |
+The game was tried by automated scripts in Chrome on a single Windows PC (keyboard, mouse, emulated touch, offline, saving). Everything else is **not verified**:
 
-Also **not verified**:
+- **real phones**: only Chrome's emulation on a desktop PC;
+- **Safari and Firefox** (so Mac and iPhone too): not tried;
+- **screen readers** (NVDA, VoiceOver…): not tried;
+- **the English texts**: not proofread by a native speaker;
+- **the music and the ending of the story**: never listened to or played through by a person;
+- **timings and smoothness**: measured on one fast PC only; they say nothing about an average phone.
 
-- **phones**: no real phone has been tried, only Chrome's touch emulation. Sound on iPhone (silent switch, resuming after the background) is not verified;
-- **smoothness**: measured on a single, very powerful PC. Nothing is measured on a phone or a modest computer;
-- **screen readers** (NVDA, VoiceOver...): the game announces changes in a region meant for them, but no screen reader has been tried;
-- **the English text**: it was written without review by a native English speaker;
-- **"a stranger casts a first line in under 10 seconds without reading anything"**: not verified by a human. A script follows the shortest path (2 interactions, a few seconds), which does not prove that a visitor gets there without hesitating;
-- **how it feels**: the pace (the complete journal is estimated at about 2 h 20 by a simulation, not by played sessions), the quality of the sound and the fish leaving after 8 seconds have not been judged by real players;
-- real private browsing, the "Save as" dialog of the photo, locked screen rotation.
+## Credits
+
+A game by MalikChopa.
+
+- 3D: [three.js](https://threejs.org/) (MIT), copied into `vendor/` (no CDN).
+- 3D scenery models: [Kenney](https://www.kenney.nl/) (CC0), lightened and recoloured; the water, grass, light, characters and fish are made by code.
+- Music: omfgdude (CC0, OpenGameArt).
+- Font: [Pixelify Sans](https://github.com/eifetx/Pixelify-Sans) (SIL OFL 1.1).
+
+The game was designed and programmed with the help of Claude (Anthropic), an artificial-intelligence assistant; the art direction and the decisions are the author's.
 
 ## Licences
 
 - **Code**: [MIT](LICENSE).
-- **Artwork** (the fish, the screenshots and the GIF of this repository, the photos exported by the game): [CC BY 4.0](LICENSE-ART). If you reuse them, credit: "Lullaby Lake — artwork (dessins) © MalikChopa, CC BY 4.0, https://creativecommons.org/licenses/by/4.0/".
-- **Third-party items** (PixiJS, the Pixelify Sans font, ...): see [THIRD-PARTY](THIRD-PARTY).
-
-## Credits
-
-A game by MalikChopa. Font [Pixelify Sans](https://github.com/eifetx/Pixelify-Sans) (SIL OFL 1.1). Display: [PixiJS](https://pixijs.com/) (MIT). The game was designed and programmed with the help of Claude (Anthropic), an artificial intelligence assistant; the art direction and the decisions are the author's.
+- **Art and sounds** made for the game: [CC BY 4.0](LICENSE-ART), © MalikChopa. If you reuse them, credit: "Lullaby Lake — © MalikChopa, CC BY 4.0, https://creativecommons.org/licenses/by/4.0/".
+- **Third-party material** (three.js, font, 3D models, music): see [THIRD-PARTY](THIRD-PARTY) and [the model credits](refonte/assets/models/CREDITS.txt).

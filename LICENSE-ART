@@ -11,11 +11,11 @@ Holder / Titulaire : MalikChopa
 
 Covered files / Fichiers couverts (and only these / et seulement ceux-ci) :
 
-  - src/data/fishSprites.js      the drawing parameters of the 12 fish (colours, shapes) / les
-                                 paramètres de dessin des 12 poissons (couleurs, formes). The program
+  - src/data/fishSprites.js      the drawing parameters of the 24 fish (colours, shapes) / les
+                                 paramètres de dessin des 24 poissons (couleurs, formes). The program
                                  that paints them, src/art/fishPaint.js, is under MIT (see LICENSE) /
                                  le programme qui les peint, src/art/fishPaint.js, est sous MIT
-  - docs/media/                  the animated GIF and the screenshots / le GIF et les captures
+  - docs/media/                  the screenshots / les captures d'écran
   - the PNG photos exported by the game's photo mode (they show the drawings
     above and the scenery painted by the code) / les photos PNG exportées par le
     mode photo du jeu (elles montrent les dessins ci-dessus et le décor peint par le code)

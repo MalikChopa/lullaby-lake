@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lullaby Lake — HD-2D</title>
+<meta name="description" content="Lullaby Lake en HD-2D : un lac, son village, sa roselière, sa forêt. Pêche zen, sans victoire ni défaite.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="./styles.css">
+<script type="importmap">{"imports":{"three":"../vendor/three/three.module.js","three/addons/":"../vendor/three/"}}</script>
+</head>
+<body>
+<div id="app" data-screen="home" role="main">
+  <canvas id="scene" tabindex="0" aria-label="Le lac en 3D : une cabane, un ponton, un village, une roselière, une forêt, un pêcheur et son chat."></canvas>
+  <div class="vig" aria-hidden="true"></div>
+
+  <!-- game screen: the interface over the 3D view (UI redesign, brief 27): two small capsules, one labelled Menu button, ONE message slot at the bottom (a toast or the
+       context hint, never both), a small first-time coach, the touch cluster. The legacy ids (badgeText, bookText, purseText, condText, orderText, zoneText) stay: they hold the
+       full text for the screen reader and the checks; the visible parts are the capsule spans. -->
+  <div id="hud" class="scr" data-ui="game">
+    <div id="topL">
+      <div id="clock" class="cap" tabindex="0" role="group" data-tip="">
+        <canvas class="ic" id="icPhase" data-uic="sun" aria-hidden="true"></canvas><span id="clockText" aria-hidden="true">12:00</span><canvas class="ic" id="icWeather" data-uic="sun" aria-hidden="true"></canvas>
+        <span id="badgeText" class="sr-only"></span>
+      </div>
+      <p id="zoneText" class="zone" role="status"></p>
+      <button type="button" id="tracker" class="cap trk" aria-expanded="true" data-tip=""><canvas class="ic" data-eco="scroll" aria-hidden="true"></canvas><span id="orderShort" aria-hidden="true"></span><span id="trkChev" aria-hidden="true">▾</span><span id="orderText" class="sr-only"></span></button>
+      <p id="condCap" class="cap warn" hidden data-tip=""><canvas class="ic" data-uic="line" aria-hidden="true"></canvas><span id="condText"></span></p>
+      <span id="bookText" class="sr-only"></span>
+    </div>
+    <div id="topR">
+      <div class="rowR"><span id="purse" class="cap" tabindex="0" role="group" data-tip=""><canvas class="ic" data-eco="pearl" aria-hidden="true"></canvas><span id="pearlNum" aria-hidden="true">0</span><canvas class="ic" data-eco="bucket" aria-hidden="true"></canvas><span id="bucketNum" aria-hidden="true">0</span><span id="purseText" class="sr-only"></span></span>
+      <button type="button" id="btnMenu" class="btn alt menubtn" aria-haspopup="true" aria-expanded="false" aria-controls="menu" data-tip=""><canvas class="ic s" data-uic="menu" aria-hidden="true"></canvas><span id="menuBtnText" data-i18n="menu.title"></span></button></div>
+      <aside id="coach" class="panel" hidden role="note" aria-labelledby="coachTitle"><p id="coachTitle"><canvas class="ic s" data-uic="spark" aria-hidden="true"></canvas><span data-i18n="tip.title"></span></p><p id="coachText"></p><button type="button" id="coachOk" class="btn alt sm" data-i18n="tip.dismiss"></button></aside>
+    </div>
+    <div id="menuWrap" hidden>
+      <div id="menuBackdrop"></div>
+      <nav id="menu" class="panel" aria-labelledby="menuTitle">
+        <h2 id="menuTitle" data-i18n="menu.title"></h2>
+        <button type="button" class="mi" id="icoBook" data-go="book"><canvas class="ic" data-ic="book" aria-hidden="true"></canvas><span class="mi-t" data-i18n="menu.book"></span><span class="mi-n" id="menuBookNew"></span><kbd aria-hidden="true">C</kbd></button>
+        <button type="button" class="mi" id="icoQuests" data-go="quests"><canvas class="ic" data-eco="scroll" aria-hidden="true"></canvas><span class="mi-t" data-i18n="menu.quests"></span><span class="mi-n" id="menuQuestNew"></span><kbd aria-hidden="true">O</kbd></button>
+        <button type="button" class="mi" id="icoBag" data-go="bag"><canvas class="ic" data-uic="bag" aria-hidden="true"></canvas><span class="mi-t" data-i18n="menu.bag"></span><kbd aria-hidden="true">B</kbd></button>
+        <button type="button" class="mi" id="icoPhoto" data-go="photo"><canvas class="ic" data-ic="camera" aria-hidden="true"></canvas><span class="mi-t" data-i18n="menu.photo"></span><kbd aria-hidden="true">P</kbd></button>
+        <button type="button" class="mi" id="icoSettings" data-go="settings"><canvas class="ic" data-uic="sliders" aria-hidden="true"></canvas><span class="mi-t" data-i18n="menu.settings"></span><kbd aria-hidden="true">R</kbd></button>
+        <button type="button" class="btn alt mi-close" id="menuResume" data-i18n="menu.resume"></button>
+      </nav>
+    </div>
+    <div id="msg">
+      <p id="hint" class="panel"></p>
+      <p id="toast" class="panel" hidden></p>
+    </div>
+    <div id="tip" role="tooltip" hidden></div>
+    <div id="card" class="panel card" hidden role="dialog" aria-labelledby="cardName">
+      <canvas id="cardFish" width="40" height="24" aria-hidden="true"></canvas>
+      <h3 id="cardName"></h3>
+      <div id="cardInfo"></div>
+      <div id="cardBook"></div>
+      <button type="button" id="cardRelease" class="btn"></button>
+    </div>
+    <!-- the fight (J11): a bar with the fish's zone (a bracketed band) and the player's marker; text cue + percentage; keyboard, mouse and touch -->
+    <div id="fight" class="panel" hidden role="group" aria-labelledby="fightTitle" aria-describedby="fightHelp">
+      <p id="fightTitle"></p>
+      <div class="fight-row">
+        <div id="fightBar" aria-hidden="true"><div id="fightBand"><i class="bk bt"></i><i class="bk bb"></i></div><div id="fightMark"><b></b></div></div>
+        <div class="fight-side">
+          <p id="fightCue" aria-hidden="true"></p>
+          <div id="fightProg" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-i18n-aria="chal.fight.title"><i></i></div>
+          <p id="fightPct"></p>
+          <p id="fightHelp"></p>
+        </div>
+      </div>
+      <button type="button" id="fightHold" class="btn"></button>
+      <div class="fight-acts"><button type="button" id="fightAuto" class="btn alt" aria-pressed="false"></button><button type="button" id="fightLet" class="btn alt"></button></div>
+    </div>
+    <button type="button" id="ctxBtn" class="btn alt"></button>
+    <button type="button" id="fishBtn" class="btn" hidden>Pêcher</button>
+    <button type="button" id="turnL" class="btn alt turn" hidden aria-label="Tourner la vue">⟲</button>
+    <button type="button" id="turnR" class="btn alt turn" hidden aria-label="Tourner la vue">⟳</button>
+    <div id="tags"></div>
+    <div id="stick" hidden><div id="stickKnob"></div></div>
+    <pre id="debug" hidden></pre>
+  </div>
+
+  <!-- start screen: over the live 3D lake -->
+  <section class="scr ui on" id="s-home" data-ui="home">
+    <div class="dim"></div>
+    <div class="home-lang"><span class="seg" role="group" id="homeLang" data-i18n-aria="settings.lang"><button type="button" data-hl="fr" lang="fr">FR</button><button type="button" data-hl="en" lang="en">EN</button></span></div>
+    <div class="home-col">
+      <h1 id="title" data-i18n="app.title">Lullaby Lake</h1>
+      <p id="sub" data-i18n="home.sub"></p>
+      <p id="snd"><canvas class="ic s" data-ic="speaker" aria-hidden="true"></canvas><span data-i18n="home.sound"></span></p>
+      <div id="offer" class="panel" hidden role="group" aria-labelledby="offerTitle">
+        <h2 id="offerTitle" data-i18n="r.import.title"></h2>
+        <p id="offerBody"></p>
+        <div class="home-btns"><button type="button" class="btn" id="btnImport" data-i18n="r.import.yes"></button><button type="button" class="btn alt" id="btnNoImport" data-i18n="r.import.no"></button></div>
+      </div>
+      <div class="home-btns"><button type="button" class="btn" id="btnStart" disabled data-i18n="btn.start"></button><button type="button" class="btn alt" id="btnStartMuted" disabled data-i18n="btn.startMuted"></button></div>
+      <div id="loadWrap"><p id="loadMsg" class="note" role="status" data-i18n="r.loading"></p><div id="loadBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-i18n-aria="r.loading"><i></i></div></div>
+    </div>
+  </section>
+
+  <!-- journal: 3 pages (J12-A): the 24 fish, the dream fish, Grandma's letters (#s-book[data-page]) -->
+  <section class="scr ui" id="s-book" role="dialog" aria-modal="true" aria-labelledby="t-book" data-ui="book" data-page="fish">
+    <div class="dim"></div>
+    <div class="panel sheet bksheet">
+      <div class="hd"><canvas class="ic" data-ic="book" aria-hidden="true"></canvas><h2 id="t-book" data-i18n="title.book"></h2><div class="pips" id="pips"></div><div class="pips" id="dreamPips"></div><div class="pips" id="letterCount"></div></div>
+      <div class="bk-main">
+        <div class="bk-left">
+          <div class="grid" id="grid" role="group" data-i18n-aria="title.book"></div>
+          <div class="grid" id="dreamGrid" role="group" data-i18n-aria="story.book.dreams"></div>
+          <div class="dreamtitles" id="dreamTitles"></div>
+          <div id="letterList" role="group" data-i18n-aria="story.book.letters"></div>
+        </div>
+        <div class="bk-right">
+          <div class="panel" id="page"></div>
+          <div class="panel" id="dreamPage"></div>
+          <div class="panel" id="letterPage"></div>
+        </div>
+      </div>
+      <div class="bk-foot">
+      <button type="button" class="btn alt questb" data-go="quests" data-i18n="chal.quests.title"></button>
+      <div id="bookTabs" class="seg" role="group" data-i18n-aria="title.book"><button type="button" data-bp="fish" data-i18n="story.tab.fish"></button><button type="button" data-bp="dreams" data-i18n="story.tab.dreams"></button><button type="button" data-bp="letters" data-i18n="story.tab.letters"></button></div>
+      </div>
+      <button type="button" class="btn alt closeb" data-go="game" data-i18n-aria="btn.close"><canvas class="ic s" data-ic="close" aria-hidden="true"></canvas></button>
+    </div>
+  </section>
+
+  <!-- settings: five groups with sticky headings (brief 27), one scrolling column; every control keeps its id -->
+  <section class="scr ui" id="s-settings" role="dialog" aria-modal="true" aria-labelledby="t-settings" data-ui="settings">
+    <div class="dim"></div>
+    <div class="panel sheet">
+      <div class="sbody">
+        <div class="hd"><canvas class="ic" data-uic="sliders" aria-hidden="true"></canvas><h2 id="t-settings" data-i18n="title.settings"></h2></div>
+        <div class="rows">
+          <section class="grp" role="group" aria-labelledby="g-lang"><h3 class="gh" id="g-lang" data-i18n="set.g.lang"></h3>
+            <div class="set"><span class="lbl" id="lblLang" data-i18n="settings.lang"></span>
+              <span class="seg" role="group" aria-labelledby="lblLang" id="segLang"><button type="button" data-lang="auto" data-i18n="btn.langAuto"></button><button type="button" data-lang="fr" lang="fr" data-i18n="btn.langFr"></button><button type="button" data-lang="en" lang="en" data-i18n="btn.langEn"></button></span></div>
+            <div class="set"><span class="lbl" id="lblSize" data-i18n="settings.textSize"></span>
+              <span class="seg" role="group" aria-labelledby="lblSize" id="segSize"><button type="button" data-fs="1" data-i18n="btn.size1"></button><button type="button" data-fs="1.25" data-i18n="btn.size2"></button><button type="button" data-fs="1.5" data-i18n="btn.size3"></button></span></div>
+            <p class="preview" id="sizePreview" data-i18n="set.preview"></p>
+          </section>
+          <section class="grp" role="group" aria-labelledby="g-sound"><h3 class="gh" id="g-sound" data-i18n="set.g.sound"></h3>
+            <div class="vol"><label class="lbl" for="volAmbience" data-i18n="settings.vol.ambience"></label><input type="range" id="volAmbience" min="0" max="100" step="5"><output for="volAmbience" id="outAmbience"></output></div>
+            <div class="vol"><label class="lbl" for="volFx" data-i18n="settings.vol.fx"></label><input type="range" id="volFx" min="0" max="100" step="5"><output for="volFx" id="outFx"></output></div>
+            <div class="vol"><label class="lbl" for="volMusic" data-i18n="settings.vol.music"></label><input type="range" id="volMusic" min="0" max="100" step="5"><output for="volMusic" id="outMusic"></output></div>
+            <div class="set"><span class="lbl" id="lblStyle" data-i18n="settings.musicStyle"></span>
+              <span class="seg" role="group" aria-labelledby="lblStyle" id="segStyle"><button type="button" data-style="soft" data-i18n="btn.styleSoft"></button><button type="button" data-style="real" data-i18n="btn.styleReal"></button></span></div>
+            <label class="chk"><input type="checkbox" id="chkMute"><span data-i18n="settings.mute"></span></label>
+          </section>
+          <section class="grp" role="group" aria-labelledby="g-image"><h3 class="gh" id="g-image" data-i18n="set.g.image"></h3>
+            <div class="set"><label class="lbl" for="quality" data-i18n="r.quality"></label>
+              <select id="quality"><option value="auto"></option><option value="low"></option><option value="mid"></option><option value="high"></option></select></div>
+            <label class="chk"><input type="checkbox" id="chkCalm"><span data-i18n="set.calm"></span></label>
+          </section>
+          <section class="grp" role="group" aria-labelledby="g-access"><h3 class="gh" id="g-access" data-i18n="set.g.access"></h3>
+            <label class="chk"><input type="checkbox" id="chkRm"><span data-i18n="settings.reducedMotion"></span></label>
+            <label class="chk"><input type="checkbox" id="chkKeys"><span data-i18n="settings.shortcuts"></span></label>
+          </section>
+          <section class="grp" role="group" aria-labelledby="g-game"><h3 class="gh" id="g-game" data-i18n="set.g.game"></h3>
+            <label class="chk"><input type="checkbox" id="chkWait"><span data-i18n="settings.fishWaits"></span></label>
+            <label class="chk"><input type="checkbox" id="chkAuto"><span data-i18n="chal.set.auto"></span></label>
+            <div class="set"><button type="button" class="btn alt sm" id="btnTipsAgain" data-i18n="set.tipsAgain"></button><span class="note" id="tipsAgainMsg" role="status" aria-live="polite"></span></div>
+          </section>
+        </div>
+        <p class="note" data-i18n="settings.note"></p>
+        <p class="note" data-i18n="set.menuNote"></p>
+        <p class="note" id="saveState" hidden></p>
+      </div>
+      <button type="button" class="btn alt closeb" data-go="game" data-i18n-aria="btn.close"><canvas class="ic s" data-ic="close" aria-hidden="true"></canvas></button>
+    </div>
+  </section>
+
+  <!-- bag and gear (brief 27): the purse, the bucket, the equipped gear and its wear; read-only -->
+  <section class="scr ui" id="s-bag" role="dialog" aria-modal="true" aria-labelledby="t-bag" data-ui="bag">
+    <div class="dim"></div>
+    <div class="panel sheet shopsheet">
+      <div class="hd"><canvas class="ic" data-uic="bag" aria-hidden="true"></canvas><h2 id="t-bag" data-i18n="bag.title"></h2></div>
+      <div id="bagBody"></div>
+      <p id="gearLine" class="sr-only" aria-hidden="true"></p>
+      <p id="condLine" class="sr-only" aria-hidden="true"></p>
+      <button type="button" class="btn alt closeb" data-go="game" data-i18n-aria="btn.close"><canvas class="ic s" data-ic="close" aria-hidden="true"></canvas></button>
+    </div>
+  </section>
+
+  <!-- shop (J10): sell the bucket, buy gear, see what is equipped -->
+  <section class="scr ui" id="s-shop" role="dialog" aria-modal="true" aria-labelledby="t-shop" data-ui="shop">
+    <div class="dim"></div>
+    <div class="panel sheet shopsheet">
+      <div class="hd"><canvas class="ic" data-eco="bucket" aria-hidden="true"></canvas><h2 id="t-shop" data-i18n="shop.title"></h2></div>
+      <div id="shopKeeper"><canvas class="folkface" id="shopFace" width="24" height="32" aria-hidden="true"></canvas><p><b id="shopKeeperName"></b><span id="shopSay"></span></p></div>
+      <p id="shopPurse" class="note"></p>
+      <p id="shopMsg" class="note" role="status" aria-live="polite"></p>
+      <div id="shopTabs" class="seg" role="tablist" data-i18n-aria="shop.title"><button type="button" data-tab="sell" role="tab"></button><button type="button" data-tab="buy" role="tab"></button><button type="button" data-tab="gear" role="tab"></button></div>
+      <div id="shopList" role="group" data-i18n-aria="shop.title"></div>
+      <div id="shopBulk"></div>
+      <div id="shopConfirm" class="panel" hidden role="alertdialog"></div>
+      
+      <button type="button" class="btn alt closeb" data-go="game" data-i18n-aria="shop.close"><canvas class="ic s" data-ic="close" aria-hidden="true"></canvas></button>
+    </div>
+  </section>
+
+  <!-- Atelier (J11): repair the line and the rod; the free emergency string (also from the cabin) -->
+  <section class="scr ui" id="s-repair" role="dialog" aria-modal="true" aria-labelledby="t-repair" data-ui="repair">
+    <div class="dim"></div>
+    <div class="panel sheet shopsheet">
+      <div class="hd"><canvas class="ic" data-eco="rod" aria-hidden="true"></canvas><h2 id="t-repair"></h2></div>
+      <div id="repKeeper" class="keeper"><canvas class="folkface" id="repFace" width="24" height="32" aria-hidden="true"></canvas><p><b id="repKeeperName"></b><span id="repSay"></span></p></div>
+      <p id="repPurse" class="note"></p>
+      <p id="repMsg" class="note" role="status" aria-live="polite"></p>
+      <div id="repList" role="group" data-i18n-aria="chal.repair.title"></div>
+      <button type="button" class="btn alt closeb" data-go="game" data-i18n-aria="chal.repair.close"><canvas class="ic s" data-ic="close" aria-hidden="true"></canvas></button>
+    </div>
+  </section>
+
+  <!-- notice board and quest log (J11): 3 orders that never expire, and the milestones -->
+  <section class="scr ui" id="s-quests" role="dialog" aria-modal="true" aria-labelledby="t-quests" data-ui="quests">
+    <div class="dim"></div>
+    <div class="panel sheet shopsheet">
+      <div class="hd"><canvas class="ic" data-eco="scroll" aria-hidden="true"></canvas><h2 id="t-quests" data-i18n="chal.quests.title"></h2></div>
+      <p id="qNote" class="note"></p>
+      <p id="qMsg" class="note" role="status" aria-live="polite"></p>
+      <div id="qList" role="group" data-i18n-aria="chal.quests.title"></div>
+      <button type="button" class="btn alt closeb" data-go="game" data-i18n-aria="chal.quests.close"><canvas class="ic s" data-ic="close" aria-hidden="true"></canvas></button>
+    </div>
+  </section>
+
+  <!-- dialogue (J12-A): the box at the bottom over the live world; Escape = later -->
+  <section class="scr ui" id="s-dialogue" role="dialog" aria-modal="true" aria-labelledby="dlgName" data-ui="dialogue">
+    <div id="dlgBox" class="panel" tabindex="-1">
+      <div id="dlgHead"><canvas id="dlgFace" class="folkface" width="24" height="32" aria-hidden="true" hidden></canvas><canvas id="dlgIcon" class="ic" aria-hidden="true" hidden></canvas><b id="dlgName"></b></div>
+      <p id="dlgText"><span id="dlgShown"></span><span id="dlgRest" aria-hidden="true"></span></p>
+      <div id="dlgChoices" role="group" data-i18n-aria="story.ui.dialogue" hidden></div>
+      <div id="dlgCtl"><button type="button" id="dlgLater" class="btn alt"></button><button type="button" id="dlgHist" class="btn alt" aria-expanded="false" aria-controls="dlgHistory"></button><button type="button" id="dlgNext" class="btn" hidden></button></div>
+      <p id="dlgHelp" class="note"></p>
+    </div>
+    <div id="dlgHistory" class="panel" hidden role="log" aria-labelledby="dlgHistTitle"><h3 id="dlgHistTitle"></h3><div id="dlgHistList"></div><button type="button" id="dlgHistClose" class="btn alt"></button></div>
+  </section>
+
+  <!-- photo mode: the saved picture is the 3D view alone, without any of this interface -->
+  <section class="scr ui" id="s-photo" data-ui="photo">
+    <div class="photo-bar">
+      <p class="note panel" data-i18n="photo.hint"></p>
+      <p class="note panel" id="photoMsg" hidden></p>
+      <div class="row"><button type="button" class="btn" id="btnShot" data-i18n="btn.save"></button><button type="button" class="btn alt" data-go="game" data-i18n="btn.back"></button></div>
+    </div>
+  </section>
+
+  <div id="shutter" aria-hidden="true" hidden></div>
+  <div id="fade" aria-hidden="true"></div>
+  <div class="panel" id="saveNote" aria-hidden="true" hidden></div>
+  <div id="lost" class="panel" hidden></div>
+  <div id="fallback" class="panel" hidden>
+    <h1 id="fbTitle">Ce navigateur ne peut pas afficher le lac en 3D</h1>
+    <p id="fbBody">Il lui manque WebGL 2. Essaie un navigateur à jour (Chrome, Edge, Firefox ou Safari), ou active l’accélération matérielle dans ses réglages.</p>
+    <p><a id="fbLink" class="btn" href="./">Réessayer</a></p>
+  </div>
+  <div id="live" class="sr-only" role="status" aria-live="polite"></div>
+  <noscript><div class="panel" id="nojs">JavaScript est nécessaire pour jouer. / JavaScript is needed to play.</div></noscript>
+</div>
+
+<!-- portrait phone: both languages; the message goes away by itself when the phone is turned (CSS only). If the phone cannot turn (rotation lock,
+     browser inside another app), the button turns the picture by itself instead (html[data-rot], shell/shell.js), as in the 2D game -->
+<div id="rotate" role="status">
+  <div class="phone" aria-hidden="true"></div>
+  <p>Tourne ton téléphone</p>
+  <p>Rotate your phone</p>
+  <p class="rot-tip">Ça ne tourne pas (rotation verrouillée, navigateur d'une appli) ?<br>Phone does not turn (rotation lock, in-app browser)?</p>
+  <button id="rotateAnyway" type="button">Jouer quand même · Play anyway</button>
+</div>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>

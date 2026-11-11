@@ -2,126 +2,19 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lullaby Lake</title>
+<meta name="description" content="Lullaby Lake : un jeu de pêche zen en HD-2D, dans le navigateur. A zen HD-2D fishing game in the browser.">
+<meta http-equiv="refresh" content="0; url=refonte/">
 <link rel="icon" href="data:,">
-<link rel="stylesheet" href="./src/styles.css">
+<style>
+html, body { margin: 0; height: 100%; background: #0e0a20; color: #fdf2dc; font-family: monospace; }
+body { display: flex; align-items: center; justify-content: center; text-align: center; }
+a { color: #f0d890; }
+</style>
+<script>location.replace('refonte/' + location.search + location.hash);</script>
 </head>
 <body>
-<div id="wrap">
-  <canvas id="backdrop" aria-hidden="true" hidden></canvas>
-  <div id="stage">
-    <canvas id="scene" width="480" height="270" tabindex="0" data-i18n-aria="scene.label.dusk"></canvas>
-    <div class="vig" aria-hidden="true"></div>
-    <div id="webglMsg" class="webgl-msg" role="status" hidden data-i18n="webgl.fail"></div>
-
-    <!-- screen 1: home -->
-    <section class="scr ui on" id="s-home">
-      <div class="dim"></div>
-      <div class="home-lang"><span class="seg" role="group" id="homeLang" data-i18n-aria="settings.lang">
-        <button data-hl="fr" lang="fr">FR</button><button data-hl="en" lang="en">EN</button>
-      </span></div>
-      <h1 class="center" id="title" data-i18n="app.title"></h1>
-      <div class="center" id="sub" data-i18n="home.sub"></div>
-      <div class="center" id="snd"><canvas class="ic s" data-ic="speaker" aria-hidden="true"></canvas><span data-i18n="home.sound"></span></div>
-      <div class="center" id="start"><div class="home-btns"><button class="btn" id="btnStart" data-i18n="btn.start"></button><button class="btn alt" id="btnStartMuted" data-i18n="btn.startMuted"></button></div></div>
-    </section>
-
-    <!-- screen 2: game scene -->
-    <section class="scr ui" id="s-game">
-      <div class="badge panel" id="badge"><canvas class="ic s" id="phaseIc" aria-hidden="true"></canvas><canvas class="ic s" id="wxIc" aria-hidden="true" hidden></canvas><span id="phaseTxt"></span></div>
-      <div class="icons">
-        <button class="ico" data-go="photo" data-i18n-title="ui.photo" data-i18n-aria="ui.photoOpen"><canvas class="ic" data-ic="camera" aria-hidden="true"></canvas></button>
-        <button class="ico" data-go="settings" data-i18n-title="ui.settings" data-i18n-aria="ui.settingsOpen"><canvas class="ic" data-ic="speaker" aria-hidden="true"></canvas></button>
-        <button class="ico" data-go="book" data-i18n-title="ui.book" data-i18n-aria="ui.bookOpen"><canvas class="ic" data-ic="book" aria-hidden="true"></canvas></button>
-      </div>
-      <div class="center panel" id="toast" hidden aria-hidden="true"></div>
-      <div class="center panel" id="bub" hidden><b id="bang" aria-hidden="true" hidden>!</b><span id="msg"></span></div>
-      <div class="center panel" id="power" hidden><span data-i18n="hud.power"></span><span id="ppips" aria-hidden="true"></span><span id="pval"></span></div>
-      <div class="center panel" id="hint" hidden></div>
-      <div class="panel card" id="card" hidden>
-        <div class="c-left">
-          <div><span class="tag" id="tagNew" hidden data-i18n="card.new"></span><span class="tag" id="tagRecord" hidden data-i18n="card.record"></span></div>
-          <canvas id="cardFish" width="40" height="24" aria-hidden="true"></canvas>
-        </div>
-        <div class="c-right">
-          <h3 id="cardName"></h3>
-          <div id="cardInfo"></div>
-          <p id="cardDesc"></p>
-          <div id="cardBook"></div>
-          <button class="btn" id="btnRelease" data-i18n="btn.release"></button>
-        </div>
-      </div>
-    </section>
-
-    <!-- screen 3: journal (one slot per species of data/species.js) -->
-    <section class="scr ui" id="s-book" role="dialog" aria-modal="true" aria-labelledby="t-book">
-      <div class="panel sheet">
-        <div class="hd"><canvas class="ic" data-ic="book" aria-hidden="true"></canvas><h2 id="t-book" data-i18n="title.book"></h2><div class="pips" id="pips"></div></div>
-        <div class="grid" id="grid" role="group" data-i18n-aria="title.book"></div>
-        <div class="panel" id="page"></div>
-        <button class="btn alt closeb" data-go="game" data-i18n-aria="btn.close"><canvas class="ic s" data-ic="close" aria-hidden="true"></canvas></button>
-      </div>
-    </section>
-
-    <!-- screen 4: settings -->
-    <section class="scr ui" id="s-settings" role="dialog" aria-modal="true" aria-labelledby="t-settings">
-      <div class="panel sheet">
-        <div class="sbody">
-        <div class="hd"><canvas class="ic" data-ic="speaker" aria-hidden="true"></canvas><h2 id="t-settings" data-i18n="title.settings"></h2></div>
-        <div class="rows">
-          <div class="set"><span class="lbl" id="lblLang" data-i18n="settings.lang"></span>
-            <span class="seg" role="group" aria-labelledby="lblLang" id="segLang">
-              <button data-lang="auto" data-i18n="btn.langAuto"></button><button data-lang="fr" lang="fr" data-i18n="btn.langFr"></button><button data-lang="en" lang="en" data-i18n="btn.langEn"></button>
-            </span></div>
-          <div class="set"><span class="lbl" id="lblSize" data-i18n="settings.textSize"></span>
-            <span class="seg" role="group" aria-labelledby="lblSize" id="segSize">
-              <button data-fs="1" data-i18n="btn.size1"></button><button data-fs="1.25" data-i18n="btn.size2"></button><button data-fs="1.5" data-i18n="btn.size3"></button>
-            </span></div>
-          <div class="vol"><label class="lbl" for="volAmbience" data-i18n="settings.vol.ambience"></label><input type="range" id="volAmbience" min="0" max="100" step="5"><output for="volAmbience" id="outAmbience"></output></div>
-          <div class="vol"><label class="lbl" for="volFx" data-i18n="settings.vol.fx"></label><input type="range" id="volFx" min="0" max="100" step="5"><output for="volFx" id="outFx"></output></div>
-          <div class="vol"><label class="lbl" for="volMusic" data-i18n="settings.vol.music"></label><input type="range" id="volMusic" min="0" max="100" step="5"><output for="volMusic" id="outMusic"></output></div>
-          <div class="set"><span class="lbl" id="lblStyle" data-i18n="settings.musicStyle"></span>
-            <span class="seg" role="group" aria-labelledby="lblStyle" id="segStyle">
-              <button data-style="soft" data-i18n="btn.styleSoft"></button><button data-style="real" data-i18n="btn.styleReal"></button>
-            </span></div>
-          <label class="chk"><input type="checkbox" id="chkMute"><span data-i18n="settings.mute"></span></label>
-          <label class="chk"><input type="checkbox" id="chkRm"><span data-i18n="settings.reducedMotion"></span></label>
-          <label class="chk"><input type="checkbox" id="chkWait"><span data-i18n="settings.fishWaits"></span></label>
-          <label class="chk"><input type="checkbox" id="chkKeys"><span data-i18n="settings.shortcuts"></span></label>
-        </div>
-        <p class="note" data-i18n="settings.note"></p>
-        <p class="note" id="saveState" hidden></p>
-        </div>
-        <button class="btn alt closeb" data-go="game" data-i18n-aria="btn.close"><canvas class="ic s" data-ic="close" aria-hidden="true"></canvas></button>
-      </div>
-    </section>
-
-    <!-- screen 5: photo mode (the saved picture is the scene alone, without any of this interface) -->
-    <section class="scr ui" id="s-photo">
-      <div class="center photo-bar">
-        <p class="note panel" data-i18n="photo.hint"></p>
-        <p class="note panel" id="photoMsg" hidden></p>
-        <div class="row"><button class="btn" id="btnShot" data-i18n="btn.save"></button><button class="btn alt" data-go="game" data-i18n="btn.back"></button></div>
-      </div>
-    </section>
-
-    <div id="shutter" aria-hidden="true" hidden></div>
-    <div class="center panel" id="saveNote" aria-hidden="true" hidden></div>
-  </div>
-  <div id="live" class="sr-only" role="status" aria-live="polite"></div>
-</div>
-
-<!-- portrait phone: both languages; the message goes away by itself when the phone is turned (CSS only). If the phone cannot turn (rotation lock,
-     browser inside another app), the button below turns the picture by itself instead (html[data-rot], main.js) -->
-<div id="rotate" role="status">
-  <div class="phone" aria-hidden="true"></div>
-  <p>Tourne ton téléphone</p>
-  <p>Rotate your phone</p>
-  <p class="rot-tip">Ça ne tourne pas (rotation verrouillée, navigateur d'une appli) ?<br>Phone does not turn (rotation lock, in-app browser)?</p>
-  <button id="rotateAnyway" type="button">Jouer quand même · Play anyway</button>
-</div>
-<noscript><p style="position:fixed;inset:0;margin:0;padding:24px;background:#1d1830;color:#fff8e8;font:20px monospace;z-index:200">Lullaby Lake a besoin de JavaScript. / Lullaby Lake needs JavaScript.</p></noscript>
-<script type="module" src="./src/main.js"></script>
+<p><a href="refonte/">Lullaby Lake : jouer · play</a></p>
 </body>
 </html>
